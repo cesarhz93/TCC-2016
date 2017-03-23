@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/Layout.xhtml">
+
+
+	<ui:define name="content">
+		<h1 class="aw-page-title"><i class="fa fw fa-search"></i> Consulta de Usuários</h1>
+		
+	<p:separator style="margim-bottom: 5px; margin-bottom: 25px;"/>
+		
+
+		<h:form id="formListagem" enctype="multipart/form-data" styleClass="formulario-consulta">
+		
+		<p:toolbar style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+			<f:facet name="left">
+				<i class="fa fw fa-search"></i> <h:outputText value=" Consulta" />
+			</f:facet>
+		</p:toolbar>
+		
+			<div class="ui-fluid">
+
+				<p:dataTable id="tabela" emptyMessage="Nenhum Registro Encontrado."
+					paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
+					rows="5" reflow="true"
+					style="margin-top: 20px; margin-bottom: 40px; margin-left: 60px; margin-right: 60px;">
+				
+				<f:facet name="header">
+            <h:commandLink >
+                <p:graphicImage library="tcc" name="images/excel.jpg" width="32" />
+                <p:dataExporter type="xls" target="tabela" fileName="maquinas" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <h:graphicImage  library="tcc" name="images/pdf.png" width="27"/>
+                <p:dataExporter type="pdf" target="tabela" fileName="maquinas" encoding="ISO-8859-1"/>
+            </h:commandLink>
+        </f:facet>
+						
+					<p:column headerText="ID" style="width: 8% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{usuario.codigo}" />
+					</p:column>
+					
+
+					<p:column headerText="Login" filterBy="#{usuario.login}"  style="width: 15% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{usuario.login}" />
+					</p:column>
+					
+
+					<p:column headerText="Funcionário" filterBy="#{usuario.funcionario.nome}"  style="width: 30% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{usuario.funcionario.nome}" />
+					</p:column>
+					
+					<p:column headerText="Tipo" style="width: 15% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{usuario.tipo}" />
+					</p:column>
+					
+					<p:column headerText="Ativo" filterBy="#{usuario.ativo}"  style="width: 15% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{usuario.ativo}" />
+					</p:column>
+					
+					
+
+					<p:column headerText="Opções" style="width: 27% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" exportable="false">
+						<p:commandButton value="Excluir" icon="fa fa-trash"
+							actionListener="#{usuarioBean.excluir}"
+							update=":mensagem :formListagem:tabela" style="padding: 4px 6px  !important; ;"
+							disabled="#{autenticacaoBean.usuarioLogado.tipo == 'Secretaria'}">
+							<p:confirm header="Confirmação" message="Deseja excluir o usuário"
+								icon="fa fa-exclamation-triangle" />
+							<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+						</p:commandButton>
+
+						<p:commandButton value="Editar" icon="fa fa-trash"
+							actionListener="#{usuarioBean.editar}"
+							update=":mensagem :formCadastro:painelCadastro" style="padding: 4px 6px  !important; ;" 
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="fa fa-times-circle" />
+				</p:confirmDialog>
+			</div>
+			
+			<p:panelGrid columns="6" styleClass="panelgrid-botoesconsulta" layout="grid">  
+							<p:commandButton value="Cadastrar Novo Usuário" icon="fa fa-floppy-o" oncomplete="PF('dialogo').show();" actionListener="#{usuarioBean.novo}" 
+							update=":formCadastro:painelCadastro" style="margin-left: 95px; padding: 4px 6px  !important; ;">
+							</p:commandButton>
+						</p:panelGrid> 
+						
+		</h:form>
+
+		<p:dialog header="Cadastro de Usuários" position="center"
+			widgetVar="dialogo" draggable="false" resizable="false" modal="true"
+			closable="false"  >
+
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="painelCadastro">
+				
+				
+				<p:outputLabel value="ID" styleClass="minha-label"/>
+					<p:inputText maxlength="50" size="34"
+						value="#{usuarioBean.usuario.codigo}" required="true" disabled="true"/>
+						
+						
+				<p:outputLabel  value="Funcionário *" styleClass="minha-label" />
+					<p:selectOneMenu   filter="true" value="#{usuarioBean.usuario.funcionario}" 
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem noSelectionOption="true" itemValue="" itemLabel="Selecione um funcionário" />
+						<f:selectItems value="#{usuarioBean.funcionarios}" var="funcionario"
+							itemValue="#{funcionario}" itemLabel="#{funcionario.nome}" />
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Login *" styleClass="minha-label"/>
+					<p:inputText maxlength="30" size="30"
+						value="#{usuarioBean.usuario.login}" required="true"
+						requiredMessage="O campo 'Login' é obrigatório!" styleClass="input-meu" />
+						
+						<p:outputLabel value="Senha *" styleClass="minha-label"/>
+					<p:password maxlength="20" size="10"
+					value="#{usuarioBean.usuario.senha}" required="true"
+					requiredMessage="O campo 'Senha' é obrigatório"
+					validatorMessage="Informe uma senha de 5 a 20 caracteres">
+					<f:validateLength minimum="5" maximum="20" />
+				</p:password>
+						
+						<p:outputLabel value="Status do Usuário *" styleClass="minha-label"/>
+						<p:selectOneMenu  style="font-family: 'Trebuchet MS' ;font-size: 13px;" maxlength="9" value="#{usuarioBean.usuario.ativo}"
+						required="true" requiredMessage="O campo 'Senha' é obrigatório!" >
+								<f:selectItem itemLabel="Selecione o status"  />
+								<f:selectItem itemLabel="Ativo" itemValue="Sim" />
+								<f:selectItem itemLabel="Inativo" itemValue="Não" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel  value="Tipo do Usuário *" styleClass="minha-label"/>
+						<p:selectOneMenu maxlength="9" value="#{usuarioBean.usuario.tipo}"
+						required="true" requiredMessage="O campo 'Tipo de Usuário' é obrigatório!" >
+								<f:selectItem itemLabel="Selecione o tipo"  />
+								<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+								<f:selectItem itemLabel="Motorista" itemValue="Motorista" />
+								<f:selectItem itemLabel="Secretaria" itemValue="Secretaria" />
+						</p:selectOneMenu>
+					
+						
+
+					
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Inserir"
+						actionListener="#{usuarioBean.salvar}"
+						update=":mensagem :formCadastro:painelCadastro :formListagem:tabela"
+						oncomplete="PF('dialogo').hide()" style="padding: 4px 6px  !important; ;" />
+					<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide()" style="padding: 4px 6px  !important; ;"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-06-30T22:07:49 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="locacaoMaquina" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e292208-4e19-466d-a5a3-400d21a46966">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Terraplenagem Data Adapter"/>
+	<parameter name="CLIENTE_JURIDICO" class="java.lang.String"/>
+	<parameter name="CLIENTE_FISICO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT bd_terraplenagem.locacao_maquina.codigo,
+	bd_terraplenagem.locacao_maquina.data_devolucao,
+	bd_terraplenagem.locacao_maquina.data_locacao,
+	bd_terraplenagem.locacao_maquina.valor_total,
+	bd_terraplenagem.clientes_juridicos.nome_fantasia,
+	bd_terraplenagem.clientes_fisicos.nome AS nomeCliente,
+	bd_terraplenagem.funcionarios.nome AS nomeFunc
+FROM bd_terraplenagem.locacao_maquina
+	LEFT JOIN bd_terraplenagem.clientes_fisicos ON 
+	 bd_terraplenagem.locacao_maquina.`clienteFisico_codigo` = bd_terraplenagem.clientes_fisicos.codigo 
+	INNER JOIN bd_terraplenagem.motoristas ON 
+	 bd_terraplenagem.locacao_maquina.motorista_codigo = bd_terraplenagem.motoristas.codigo 
+	INNER JOIN bd_terraplenagem.funcionarios ON 
+	 bd_terraplenagem.locacao_maquina.funcionario_codigo = bd_terraplenagem.funcionarios.codigo 
+	LEFT JOIN bd_terraplenagem.clientes_juridicos ON 
+	 bd_terraplenagem.locacao_maquina.`clienteJuridico_codigo` = bd_terraplenagem.clientes_juridicos.codigo 
+WHERE 
+	 bd_terraplenagem.clientes_juridicos.nome_fantasia LIKE $P{CLIENTE_JURIDICO} 
+	 OR bd_terraplenagem.funcionarios.nome LIKE $P{CLIENTE_FISICO}
+ORDER BY bd_terraplenagem.locacao_maquina.codigo ASC]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Long"/>
+	<field name="data_devolucao" class="java.sql.Date"/>
+	<field name="data_locacao" class="java.sql.Date"/>
+	<field name="valor_total" class="java.math.BigDecimal"/>
+	<field name="nome_fantasia" class="java.lang.String"/>
+	<field name="nomeCliente" class="java.lang.String"/>
+	<field name="nomeFunc" class="java.lang.String"/>
+	<title>
+		<band height="56" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image scaleImage="RealSize" hAlign="Center">
+				<reportElement x="267" y="3" width="269" height="50" uuid="707bed3c-eef4-440c-a703-820cb94096a5"/>
+				<imageExpression><![CDATA["C:/Desenvolvimento/workspace_projeto/TerraplenagemTCC/src/main/webapp/imagens/logodoTCC.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="8" width="400" height="30" uuid="e2e0c8b2-d03a-4033-bcb5-5b9ae49a7318"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relatório de Locações de Máquinas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="32" width="30" height="18" uuid="f23ad5e9-eb19-4c84-9122-a1a9e39c8c8b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="590" y="30" width="100" height="20" uuid="3998e447-0074-428e-b72a-71b98f8915aa"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Devolução]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="30" width="100" height="20" uuid="2a1eff57-50e2-4e48-9c31-f893e1cbd332"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Locação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="30" width="100" height="20" uuid="1360589d-6e48-4c94-a6da-6f68c005db3d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="31" width="110" height="18" uuid="7c477f8f-2561-4949-ae90-3022053e51d2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="33" width="130" height="16" uuid="924111df-7bf5-4b8c-a369-ac4e40e919ea"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Funcionário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="30" width="100" height="20" uuid="53141887-c5c8-4884-99cc-9837e7d39e41"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motorista
+]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="30" uuid="d3f885d0-f640-47f2-a977-bb1ee518bce5"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yy">
+				<reportElement x="590" y="0" width="100" height="30" uuid="8407f74a-419f-4e86-bb3a-8bea680c5d49"/>
+				<textFieldExpression><![CDATA[$F{data_devolucao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yy">
+				<reportElement x="460" y="0" width="100" height="30" uuid="9584c29e-70c6-4696-a025-b0128a0183d8"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_locacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00">
+				<reportElement x="700" y="0" width="100" height="30" uuid="6df4e4cb-9c68-4213-b0f1-4dc7201965aa"/>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="50" y="0" width="110" height="30" uuid="ff7232e4-761b-4ec3-9d0b-90d9f3e02274"/>
+				<textFieldExpression><![CDATA[$F{nomeCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="50" y="0" width="110" height="30" uuid="fd5b07e1-8eb6-4f53-bf59-db018de92ad9"/>
+				<textFieldExpression><![CDATA[$F{nome_fantasia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="130" height="30" uuid="7d419c58-a7d1-49c5-9f90-ac70d880a11b"/>
+				<textFieldExpression><![CDATA[$F{nomeFunc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="10" width="792" height="42" uuid="da6bfb22-0e23-4a90-8e2b-5936b5bb5d69"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terraplenagem Ribeirão Claro - PR
+Telefone: 3536-1711
+
+]]></text>
+			</staticText>
+			<image scaleImage="RealSize" hAlign="Center">
+				<reportElement x="-20" y="53" width="792" height="77" uuid="b6828b62-b22c-4724-937f-05b96e030e22"/>
+				<imageExpression><![CDATA["C:/Desenvolvimento/workspace_projeto/TerraplenagemTCC/src/main/webapp/imagens/rodapeTeste.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

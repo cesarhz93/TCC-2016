@@ -1,0 +1,160 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/Layout.xhtml">
+
+<ui:define name="metadata">
+		<script>
+            function mascara(o, f) {
+              v_obj = o;
+              v_fun = f;
+              setTimeout("execmascara()", 1);
+            }
+            function execmascara() {
+              v_obj.value = v_fun(v_obj.value);
+            }
+         function valor(v) {
+        v = v.replace(/\D/g, "");
+        v = v.replace(/[0-9]{15}/, "invÃ¡lido");
+        v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 11 digitos
+        v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 8 digitos
+        v = v.replace(/(\d{1})(\d{5})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 5 digitos
+        v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2"); // coloca virgula antes dos
+        // Ãºltimos 2 digitos
+        return v;
+}
+                    </script>
+	</ui:define>
+
+	<ui:define name="content">
+		<h1 class="aw-page-title"><i class="fa fw fa-search"></i> Consulta de Tipos de Serviço</h1>
+		
+	<p:separator style="margim-bottom: 5px; margin-bottom: 25px;"/>
+		
+
+		<h:form id="formListagem" styleClass="formulario-consulta">
+		
+		<p:toolbar style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+			<f:facet name="left">
+				<i class="fa fw fa-search"></i> <h:outputText value=" Consulta" />
+			</f:facet>
+		</p:toolbar>
+		
+			
+
+				<p:dataTable id="tabela" emptyMessage="Nenhum Registro Encontrado."
+					paginator="true" value="#{tipoServicoBean.tipoServicos}" var="tipoServico"
+					rows="6" reflow="true"
+					style="margin-top: 20px; margin-bottom: 40px; margin-left: 60px; margin-right: 60px;">
+				
+					<f:facet name="header">
+            <h:commandLink >
+                <p:graphicImage library="tcc" name="images/excel.jpg" width="32" />
+                <p:dataExporter type="xls" target="tabela" fileName="maquinas" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <h:graphicImage  library="tcc" name="images/pdf.png" width="27"/>
+                <p:dataExporter type="pdf" target="tabela" fileName="maquinas" encoding="ISO-8859-1"/>
+            </h:commandLink>
+        </f:facet>
+        	
+					<p:column headerText="ID" style="width: 3% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{tipoServico.codigo}" style="margin-left: 17px;" />
+					</p:column>
+
+					<p:column headerText="Tipo" filterBy="#{tipoServico.tipo}"  style="width: 15% ; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{tipoServico.tipo}" />
+					</p:column>
+					
+					<p:column headerText="Valor Unitário" filterBy="#{tipoServico.valorUnitario}"  style="width: 15% ; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="R$ #{tipoServico.valorUnitario}" />
+					</p:column>
+
+					<p:column headerText="Opções" style="width: 10%; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" exportable="false">
+						<p:commandButton value="Excluir" icon="fa fa-trash"
+							actionListener="#{tipoServicoBean.excluir}"
+							update=":mensagem :formListagem:tabela"  style="padding: 4px 6px  !important; ;"
+							disabled="#{autenticacaoBean.usuarioLogado.tipo == 'Secretaria'}">
+							<p:confirm header="Confirmação" message="Deseja excluir o tipo de serviço?"
+								icon="fa fa-exclamation-triangle" />
+							<f:attribute name="tipoServicoSelecionado" value="#{tipoServico}" />
+						</p:commandButton>
+
+						<p:commandButton value="Editar" icon="fa fa-trash"
+							actionListener="#{tipoServicoBean.editar}"
+							update=":mensagem :formCadastro:painelCadastro"
+							oncomplete="PF('dialogo').show();"  style="padding: 4px 6px  !important; ;">
+							<f:attribute name="tipoServicoSelecionado" value="#{tipoServico}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="fa fa-times-circle" />
+				</p:confirmDialog>
+			
+			
+			<p:panelGrid columns="6" styleClass="panelgrid-botoesconsulta" layout="grid">  
+							<p:commandButton value="Cadastrar Novo Tipo de Serviço" icon="fa fa-floppy-o" oncomplete="PF('dialogo').show();" actionListener="#{tipoServicoBean.novo}" 
+							update=":formCadastro:painelCadastro" style="margin-left: 5px; padding: 4px 6px  !important; ;">
+							</p:commandButton>
+							
+							 <p:button value="Voltar" icon="fa fa-repeat" outcome="/paginas/ordemServico_cadastro.xhtml" style="margin-left: 145px; padding: 4px 6px  !important; ;" />
+						</p:panelGrid> 
+						
+		</h:form>
+		
+		
+
+		<p:dialog header="Cadastro de Tipo de Serviço" position="center"
+			widgetVar="dialogo" draggable="false" resizable="false" modal="true"
+			closable="false">
+
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="painelCadastro">
+					
+						<p:outputLabel value="ID" styleClass="minha-label"/>
+					<p:inputText maxlength="50" size="30"
+						value="#{tipoServicoBean.tipoServico.codigo}" disabled="true"/>
+						
+					<p:outputLabel value="Tipo de Serviço *" styleClass="minha-label"/>
+					<p:inputText maxlength="50" size="30"
+						value="#{tipoServicoBean.tipoServico.tipo}" required="true"
+						requiredMessage="O campo 'Tipo' é obrigatório!" styleClass="input-meu" />
+					
+					<p:outputLabel value="Valor Unitário *" styleClass="minha-label"/>
+					<p:inputText size= "30" maxlength="10" value="#{tipoServicoBean.tipoServico.valorUnitario}" styleClass="input-meu" 
+					required="true"	requiredMessage="O campo 'Valor Unitário é obrigatório" converterMessage="Informe um valor válido para o campo 'Valor Unitário'"
+								 validatorMessage="Informe um valor entre 0,01 e 999999,99 para o campo 'Valor Unitário'"
+								 onkeypress="mascara(this, valor);">
+						  <f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:inputText>
+						
+					
+	
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Inserir"
+						actionListener="#{tipoServicoBean.salvar}"
+						update=":mensagem :formCadastro:painelCadastro :formListagem:tabela"
+						oncomplete="PF('dialogo').hide()"  style="padding: 4px 6px  !important; ;"/>
+					<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide()"  style="padding: 4px 6px  !important; ;" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+	</ui:define>
+</ui:composition>

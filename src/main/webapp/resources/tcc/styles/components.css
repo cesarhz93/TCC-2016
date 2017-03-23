@@ -1,0 +1,240 @@
+/* TOGGLE */
+.aw-toggle {
+	float: right;
+	line-height: 20px;
+	margin-right: 15px;
+	
+	color: #fff;
+}
+
+/* MENU */
+.aw-menu {
+	font-size: 1.1em;
+}
+
+.ui-menubutton{
+	padding: 4px 6px  !important; ;
+}
+
+#nav li ul { 
+	display: none; 
+}
+
+#nav li:hover ul {
+	display: block;
+}
+#nav li:hover ul li { 
+	background: #1C1C1C; 
+	margin-left: -30px; 
+	position: relative;
+}
+#nav li:hover ul li a {
+	color: #9d9d9d; 
+}
+#nav li:hover ul li a:hover {
+	background: #FFA500; 
+	color: #fff;
+}
+
+#rodape {
+ width: 100%;
+ height: 100%;
+}
+
+
+
+
+
+
+
+
+.ui-menu.ui-widget {
+}
+.ui-widget-content {
+    border: 0px solid #1C1C1C;
+    background: #1C1C1C;
+    color: #1C1C1C;
+}
+.ui-menu {
+    width: 12.5em;
+    padding: 0.3em;
+    position: relative;
+    outline: 0 none;
+}
+.ui-helper-clearfix {
+    display: block;
+}
+.ui-helper-clearfix {
+    display: inline-block;
+}
+.ui-corner-all {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.ui-widget-content {
+    border: 1px solid #dddddd;
+    background: #1C1C1C;
+    color: #333333;
+}
+.ui-widget {
+    font-family: 'Trebuchet MS';
+    font-size: 13px;
+    font-weight: bold;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+Inherited from ul#nav
+.aw-menu > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+user agent stylesheet
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+.aw-menu {
+    font-size: 1.1em;
+}
+
+Pseudo ::after element
+.ui-helper-clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+
+/**/
+
+.aw-menu > ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.aw-menu > ul a {
+	display: block;
+	padding: 15px 15px;
+	
+	text-decoration: none;
+	font-weight: 500;
+	color: #9d9d9d;
+} 
+
+.aw-menu > ul i {
+	margin-right: 6px;
+}
+
+.aw-menu > ul a:hover, .aw-menu > ul a:focus {
+	background-color: #FFA500;
+	color: #fff;
+}
+
+.aw-menu > ul .is-selected {
+	border-left: 3px solid #1C1C1C;
+	background-color: #FFA500;
+}
+
+.aw-menu > ul .is-selected a {
+	margin-left: 0px;
+	color: #1C1C1C;
+}
+
+/* PAGE-TITLE */
+.aw-page-title {
+	margin: 0;
+	padding: 50px 20px;
+	margin-left: -20px;
+	margin-bottom: -40px;
+
+	
+	font-size: 1.9em;
+	color: #373737;
+}
+
+
+.panel-body{
+	margin-top: 5px;
+	
+}
+
+.ui-growl{
+    position:fixed !important; ;
+    top: 14% !important;;
+    width:301px !important;;
+}
+
+
+.ui-button{
+    background-color: #FFA500 !important; ;
+    color: #fff  !important; ;
+    display: inline-block  !important; ;
+
+    margin-bottom: 0  !important; ;
+    font-size: 14px  !important; ;
+   	font-family: 'Trebuchet MS' !important; ;
+    text-align: center  !important; ;
+    white-space: nowrap  !important; ;
+    vertical-align: middle  !important; ;
+    -ms-touch-action: manipulation  !important; ;
+    touch-action: manipulation  !important; ;
+    cursor: pointer  !important; ;
+    -webkit-user-select: none  !important; ;
+    -moz-user-select: none  !important; ;
+    -ms-user-select: none  !important; ;
+    user-select: none  !important; ;
+    background-image: none  !important; ;
+    border: 1px solid #FFA500  !important; ;
+    border-radius: 4px  !important; ;
+    
+}
+
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #FFA500;
+    background-color: #FFA500;
+    background-position: 0px;
+    background-image: -moz-linear-gradient(top, #FFA500, #FFA500);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFA500), to(#FFA500));
+    background-image: -webkit-linear-gradient(top, #FFA500, #FFA500);
+    background-image: -o-linear-gradient(top, #FFA500, #FFA500);
+    background-image: linear-gradient(to bottom, #FFA500, #FFA500);
+    background-repeat: repeat-x;
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fFFA500', endColorstr='#fFFA500', GradientType=0);
+}
+
+.ui-widget-header {
+    border: 1px solid #eeeeee;
+    background: #fff;
+    color: #333333;
+    font-weight: bold;
+}
+
+.ui-layout-unit-header, .ui-layout-unit-footer {
+    padding: 0.4em 0.2em 0.4em 0.4em;
+    background-color: #423e3e; 
+    color: #fff;
+    font-size: 15px;
+	font-family: 'Trebuchet MS';
+	border: none;
+}
+
+.ui-widget-content {
+    border: 0px solid #dddddd;
+    background: #ffffff;
+    color: #333333;
+}

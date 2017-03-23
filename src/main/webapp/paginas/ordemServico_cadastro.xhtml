@@ -1,0 +1,239 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/Layout.xhtml">
+
+<ui:define name="metadata">
+		
+		<script>
+            function mascara(o, f) {
+              v_obj = o;
+              v_fun = f;
+              setTimeout("execmascara()", 1);
+            }
+            function execmascara() {
+              v_obj.value = v_fun(v_obj.value);
+            }
+         function valor(v) {
+        v = v.replace(/\D/g, "");
+        v = v.replace(/[0-9]{15}/, "invÃ¡lido");
+        v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 11 digitos
+        v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 8 digitos
+        v = v.replace(/(\d{1})(\d{5})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 5 digitos
+        v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2"); // coloca virgula antes dos
+        // Ãºltimos 2 digitos
+        return v;
+}
+                    </script>
+	</ui:define>
+	
+	<ui:define name="content">
+
+		<h1 class="aw-page-title">
+			<i class="fa fa-cog"></i> Ordem de Serviço
+		</h1>
+		<p:separator style="margin-bottom: 20px;" />
+
+		<h:form id="formulario" styleClass="formulario-cadastro">
+		
+			<p:toolbar
+				style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+				<f:facet name="left">
+					<h:outputText value="Locação de Máquina" />
+				</f:facet>
+			</p:toolbar>
+			
+			<div class="ui-grid">
+   				 <div class="ui-grid-row">
+       			 <div class="ui-grid-col-3" style="margin-top: 15px; margin-left: 15px; margin-bottom: 10px !important; ;">
+       			 <p:outputLabel value="Selecione a Locação de Máquina: "  styleClass="minha-label2"/>
+       			 </div>
+       			 <div class="ui-grid-col-4">
+       			 
+				<p:selectOneMenu value="#{ordemServicoBean.ordemServico.locacaoMaquina}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains"
+				style="margin-top: 10px; margin-left: -30px;" id="locacao">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma Locação "/>
+					<f:selectItems value="#{ordemServicoBean.listaLocacaoMaquina}" var="locacaoMaquina" itemValue="#{locacaoMaquina}" itemLabel="#{locacaoMaquina.codigo} #{locacaoMaquina.clienteFisico.nome} #{locacaoMaquina.clienteJuridico.nomeFantasia}"/>
+				</p:selectOneMenu>
+       			 
+       			 </div>
+    		</div>
+		</div>
+		
+			<p:toolbar
+				style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+				<f:facet name="left">
+					<h:outputText value="Serviços" />
+				</f:facet>
+			</p:toolbar>
+			
+						
+					<p:dataTable id="tabelaProduto"   emptyMessage="Nenhum registro encontrado." rows="2" paginator="true" value="#{ordemServicoBean.tiposServico}" 
+					var="tipoServico" style="margin-top: 10px;" paginatorPosition="bottom" >
+				
+				<p:column headerText="Código" style="width: 4% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{tipoServico.codigo}" style="margin-left: 30px;"/>
+				</p:column>
+
+				<p:column headerText="Tipo de Serviço" style="width: 20%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" filterBy="#{tipoServico.tipo}">
+					<h:outputText value="#{tipoServico.tipo}"/>
+				</p:column>
+
+
+				<p:column headerText="Valor Unitário" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="R$ #{tipoServico.valorUnitario}"/>
+				</p:column>
+
+				<p:column headerText="Opções" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+	 				<p:commandButton icon="ui-icon-plus" actionListener="#{ordemServicoBean.adicionar}" update=":formulario:tabelaDadosLocacao :formulario:painel" 
+	 				style="margin-left: 90px;">
+	 					<f:attribute name="tipoServicoSelecionado" value="#{tipoServico}"/>
+	 				</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:panelGrid>
+				<p:button  value="Novo Tipo de Serviço" style="padding: 4px 6px  !important; ;margin-left: 465px; margin-top: -40px;" oncomplete="PF('dialogo2').show();" 
+				 outcome="/paginas/tipoServico_cadastro.xhtml">
+				</p:button>
+				
+			</p:panelGrid>	
+			
+			
+			<p:toolbar
+				style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;" id="painel">
+				<f:facet name="left">
+					
+					<h:outputText value=" Dados da Ordem de Serviço" />
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:outputLabel value="Valor Total da Locação - R$" />
+					<h:outputText value="#{ordemServicoBean.ordemServico.valorTotal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				</h:outputText>
+				</f:facet>
+			</p:toolbar>
+			
+			
+			<p:dataTable id="tabelaDadosLocacao" emptyMessage="Nenhum registro encontrado." rows="3" paginator="true" value="#{ordemServicoBean.itensOrdemServico}" var="itemOrdemServico" 
+			style="margin-top: 10px;" paginatorPosition="bottom"  >
+				
+				<p:column headerText="Código" style="width: 8% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{itemOrdemServico.tipoServico.codigo}" style="margin-left: 40px"/>
+				</p:column>
+
+				<p:column headerText="Tipo de Serviço" style="width: 20%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" filterBy="#{itemLocacao.maquina.tipoMaquina.tipo}">
+					<h:outputText value="#{itemOrdemServico.tipoServico.tipo}"/>
+				</p:column>
+
+				<p:column headerText="Valor Unitário" style="width: 8.0%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="R$ #{itemOrdemServico.tipoServico.valorUnitario}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Quantidade Horas de Serviço" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{itemOrdemServico.quantidade}" style="margin-left: 50px;"/>
+				</p:column>
+				
+				
+				<p:column headerText="Preço Parcial da Ordem de Serviço" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="R$ #{itemOrdemServico.valorUnitario}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções" style="width: 15%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+	 				<p:commandButton icon="ui-icon-minus" actionListener="#{ordemServicoBean.remover}" update=":formulario:tabelaDadosLocacao"
+	 				style="margin-left: 85px;">
+	 						<f:attribute name="itemSelecionado" value="#{itemOrdemServico}"/>
+	 				</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			
+		
+				
+				
+				
+		
+			<p:panel>		
+				
+			<h:panelGrid >
+				<p:commandButton  value="Finalizar Ordem de Serviço" style="padding: 4px 6px  !important; ;margin-top: -60px !important; ; margin-left: 425px;" oncomplete="PF('dialogo').show();" 
+				actionListener="#{ordemServicoBean.finalizar}" update="formCadastro:painelCadastro">
+				<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+				</p:commandButton>
+				
+			</h:panelGrid>	
+			
+			</p:panel>
+		</h:form>
+		
+		<p:dialog header="Finalizar Ordem de Serviço" position="center"
+			widgetVar="dialogo" draggable="true" resizable="false" modal="true"
+			closable="false"> 
+
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="painelCadastro">
+						
+				<p:outputLabel value="Selecione o tipo de cliente: *"  styleClass="minha-label"/>
+				<p:selectOneRadio value="#{ordemServicoBean.ordemServico.tipoCliente}" styleClass="minha-label">
+			            <f:selectItem itemLabel="Cliente Fisico" itemValue="1" />
+			            <f:selectItem itemLabel="Cliente Juridico" itemValue="2" />
+			            <f:ajax render="painelCadastro"></f:ajax>
+       			</p:selectOneRadio>
+				
+				
+				<p:outputLabel value="Cliente Fisico"  styleClass="minha-label"/>
+				<p:selectOneMenu value="#{ordemServicoBean.ordemServico.clienteFisico}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" disabled="#{ordemServicoBean.ordemServico.tipoCliente != 1}" >
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um cliente: "/>
+					<f:selectItems value="#{ordemServicoBean.clienteFisico}" var="clienteFisico" itemValue="#{clienteFisico}" itemLabel="#{clienteFisico.nome}"  />
+				</p:selectOneMenu>
+				
+				
+				<p:outputLabel value="Cliente Juridido"  styleClass="minha-label"/>
+				<p:selectOneMenu value="#{ordemServicoBean.ordemServico.clienteJuridico}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains" disabled="#{ordemServicoBean.ordemServico.tipoCliente != 2}">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um cliente: "/>
+					<f:selectItems value="#{ordemServicoBean.clienteJuridico}" var="clienteJuridico" itemValue="#{clienteJuridico}" itemLabel="#{clienteJuridico.nomeFantasia}"  />
+				</p:selectOneMenu>
+				
+
+					<p:outputLabel value="Funcionário *"  styleClass="minha-label"/>
+				<p:selectOneMenu value="#{ordemServicoBean.ordemServico.funcionario}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um Funcionário: "/>
+					<f:selectItems value="#{ordemServicoBean.funcionarios}" var="funcionario" itemValue="#{funcionario}" itemLabel="#{funcionario.nome}"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Data de Realização *" styleClass="minha-label"/>
+					<p:calendar  size="21"  value="#{ordemServicoBean.ordemServico.dataRealizacao}" styleClass="input-meu">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3"/>
+					</p:calendar>
+
+
+				<p:outputLabel value="Valor Total da OS *"  styleClass="minha-label"/>
+					<p:inputText value="#{ordemServicoBean.ordemServico.valorTotal}" styleClass="input-meu" disabled="true" size="10">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+					</p:inputText>
+					
+					<p:outputLabel value="Data de Cadastro *" styleClass="minha-label"/>
+					<p:calendar value="#{ordemServicoBean.ordemServico.dataCadastro}" styleClass="input-meu" disabled="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3"/>
+					</p:calendar>
+					
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" style="padding: 4px 6px  !important; ;"
+						oncomplete="PF('dialogo').hide()" update="mensagem :formulario:tabelaProduto :formulario:tabelaDadosLocacao formulario:locacao" actionListener="#{ordemServicoBean.salvar}"/>
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" style="padding: 4px 6px  !important; ;" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>	
+	</ui:define>
+</ui:composition>

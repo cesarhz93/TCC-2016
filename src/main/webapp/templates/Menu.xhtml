@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<nav class="aw-menu">
+		<ul id="nav" >
+		<li class="is-selected" >
+			<a href="home.xhtml"><i class= "fa fa-home" ></i>Home</a>
+		</li>
+
+                  
+			<li>
+				<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}"><i class="fa fa-users"></i>Cadastro Pessoal<i class="fa fa-fw fa-caret-down"></i></h:link>
+				<ul >
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/clienteFisico_cadastro.xhtml"><i class="fa fa-male"></i><i class="fa fa-female"></i>Clientes Físicos
+                      		<f:param name="acao" value="Novo"/>
+                      	</h:link>
+                      </li>
+                      
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/clienteJuridico_cadastro.xhtml"><i class="fa fa-fw fa-bar-chart"></i>Clientes Jurídicos
+                      		<f:param name="acao" value="Novo"/>
+                      	</h:link>
+                      </li>
+                      
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/funcionarios_cadastro.xhtml" ><i class="fa fa-fw fa-male"></i>Funcionários
+                      		<f:param name="acao" value="Novo"/>
+                      	</h:link>
+                      </li>
+                      
+                      <li>
+                      <h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/motorista_cadastro.xhtml" ><i class="fa fa-fw fa-truck"></i>Motoristas
+                      	<f:param name="acao" value="Novo"/>
+                      </h:link>
+                      </li>
+                       
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/usuario_cadastro.xhtml"><i class="fa fa-fw fa-user"></i>Usuários
+              				<f:param name="acao" value="Novo"/>
+                      	</h:link>
+                      </li>                    
+                </ul>
+                
+			</li>
+			
+			
+			<li>
+				<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/tipoMaquina_cadastro.xhtml"><i class="fa fa-gears"></i>Tipos de Máquinas
+					<f:param name="acao" value="Novo"/>
+				</h:link>
+			</li>
+			
+			<li>
+				<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/maquinas_cadastro.xhtml"><i class="fa fa-car"></i>Cadastro de Máquinas
+					<f:param name="acao" value="Novo"/>
+				</h:link>
+			</li>
+			
+			<li >
+				<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/locacaoMaquina_cadastro.xhtml"><i class="fa fa-truck"></i>Locação de Máquina</h:link>
+			</li>
+			
+			<li>
+				<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/ordemServico_cadastro.xhtml"><i class="fa fa-cog"></i>Ordem de Serviço</h:link>
+			</li>
+			
+			<li>
+				<h:link><i class="fa fa-file-pdf-o"></i>Relatórios<i class="fa fa-fw fa-caret-down"></i></h:link>
+				<ul>
+				
+				  <li>
+                      	<h:link  outcome="/paginas/relatorioLocacaoMaquina.xhtml"><i class="fa fa-file-pdf-o"></i>Locação Máquinas</h:link>
+                      </li> 
+                      
+                      <li>
+                      	<h:link  outcome="/paginas/relatorioOrdemServico.xhtml"><i class="fa fa-file-pdf-o"></i>Ordens de Serviço</h:link>
+                      </li> 
+                      
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/relatorioFuncionario.xhtml"><i class="fa fa-file-pdf-o"></i>Funcionários</h:link>
+                      </li>  
+                      
+                       <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/relatorioClienteFisico.xhtml"><i class="fa fa-file-pdf-o"></i>Clientes Físicos</h:link>
+                      </li> 
+                      
+                       <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/relatorioClienteJuridico.xhtml"><i class="fa fa-file-pdf-o"></i>Clientes Jurídicos</h:link>
+                      </li> 
+                      
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/relatorioMotoristas.xhtml"><i class="fa fa-file-pdf-o"></i>Motoristas</h:link>
+                      </li> 
+                      
+                      <li>
+                      	<h:link rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" outcome="/paginas/relatorioMaquina.xhtml"><i class="fa fa-file-pdf-o"></i>Máquinas</h:link>
+                      </li>    
+                      
+                    
+                                         
+                </ul>
+			</li>
+			
+			
+		</ul>
+
+	</nav>
+	
+	
+  
+	
+</ui:composition>

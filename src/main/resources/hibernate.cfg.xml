@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Configurações de Conexão com o Banco de Dados -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost/bd_terraplenagem</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">123456</property>
+
+		<!-- Pool de Conexões -->
+		<property name="connection.pool_size">31</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		<!-- Gerenciamento do Contexto das Sessões -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Cache de Segundo Nível -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Mostra as SQLs Geradas -->
+		<property name="show_sql">true</property>
+
+		<!-- Cria as tabelas do banco de dados UPDATE -->
+		<property name="hbm2ddl.auto">validate</property>
+
+		<!-- Mapameamento das entidades -->
+		<!-- Sem chave Estrangeira -->
+
+		<mapping class="br.com.tcc.terraplenagem.domain.TipoMaquina" />
+		<mapping class="br.com.tcc.terraplenagem.domain.TipoServico" />
+
+		<!-- Com chave Estrangeira -->
+
+		<mapping class="br.com.tcc.terraplenagem.domain.ClienteFisico" />
+		<mapping class="br.com.tcc.terraplenagem.domain.ClienteJuridico" />
+		<mapping class="br.com.tcc.terraplenagem.domain.Funcionario" />
+		<mapping class="br.com.tcc.terraplenagem.domain.Maquina" />
+		<mapping class="br.com.tcc.terraplenagem.domain.Motorista" />
+
+
+		<mapping class="br.com.tcc.terraplenagem.domain.Usuario" />
+		<mapping class="br.com.tcc.terraplenagem.domain.ItemLocacaoMaquina" />
+		<mapping class="br.com.tcc.terraplenagem.domain.LocacaoMaquina" />
+		<mapping class="br.com.tcc.terraplenagem.domain.ItemOrdemServico" />
+		<mapping class="br.com.tcc.terraplenagem.domain.OrdemServico" />
+
+
+
+	</session-factory>
+</hibernate-configuration>

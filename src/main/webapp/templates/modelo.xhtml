@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Sysplenagem</title>
+	<style type="text/css">
+body {
+	background-color: #1C1C1C;
+	font-size: 12px
+}
+
+.ui-menu.ui-widget .ui-menu-list .ui-widget-header {
+	background: #FFA500;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default {
+	border: 1px solid #1C1C1C;
+	background: #FFA500 50% 50% repeat-x;
+	font-weight: bold;
+	color: #ffffff;
+}
+</style>
+</h:head>
+<h:body>
+	<div align="center">
+		<p:layout
+			style="min-width:1130px;max-width:1130px;min-height:640px;max-height:640px">
+			<p:layoutUnit position="north" size="100" style="min-height:150px">
+				<h:graphicImage url="/imagens/rodape.jpg" width="100%" height="98%" />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="250">
+				<ui:insert name="menu">
+					<!--  <h:graphicImage url="/imagens/logodoTCC.jpg" width="100%" height="20%" />-->
+
+					<h:form style="font-family: 'Trebuchet MS'; font-size:15px;">
+						<p:growl id="messages" showDetail="true" />
+
+						<p:slideMenu style="width:230px">
+							<p:menuitem value="Home" icon="fa fa-home" style="font-weight: bold;"/>
+	
+							<p:submenu label="Cadastro Pessoal" icon="fa fa-user">
+								<p:submenu label="Clientes" icon="fa fa-user">
+									<p:menuitem value="Cliente Fisico" ajax="false" icon="ui-icon-close" />
+									<p:menuitem value="Cliente Juridico" ajax="false" icon="ui-icon-close" />
+								</p:submenu>
+									<p:menuitem value="Funcionários" ajax="false" icon="fa fa-user" />
+									<p:menuitem value="Motoristas" ajax="false" icon="fa fa-user" />
+									<p:menuitem value="Usuários" ajax="false" icon="fa fa-female" />
+							</p:submenu>
+							
+							<p:menuitem value="Cadastro de Máquinas" icon="fa fa-car"/>
+							
+							<p:menuitem value="Locação de Máquinas" icon="fa fa-cog" style="font-weight: bold;"/>
+							
+							<p:menuitem value="Ordem de Serviço" icon="fa fa-car" style="font-weight: bold;"/>
+							
+							<p:menuitem value="Relatórios" icon="fa fa-file-pdf-o" style="font-weight: bold;"/>
+							
+							<p:menuitem value="Sair" icon="fa fa-sign-in" style="font-weight: bold;"/>
+		
+							
+						</p:slideMenu>
+					</h:form>
+				</ui:insert>
+			</p:layoutUnit>
+			<p:layoutUnit position="center">
+				<ui:insert name="conteudo" />
+			</p:layoutUnit>
+
+
+
+
+		</p:layout>
+	</div>
+</h:body>
+</html>

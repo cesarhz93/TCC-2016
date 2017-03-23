@@ -1,0 +1,162 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/Layout.xhtml">
+
+<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{motoristaBean.acao}"/>
+		</f:metadata>
+</ui:define>
+
+	<ui:define name="content">
+		<h1 class="aw-page-title"><i class="fa fw fa-search"></i> Consulta de Motoristas</h1>
+		
+	<p:separator style="margim-bottom: 5px; margin-bottom: 25px;"/>
+		
+
+		<h:form id="formListagem" styleClass="formulario-consulta">
+		
+		<p:toolbar style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+			<f:facet name="left">
+				<i class="fa fw fa-search"></i> <h:outputText value=" Consulta" />
+			</f:facet>
+		</p:toolbar>
+		
+			<div class="ui-fluid">
+
+				<p:dataTable id="tabela" emptyMessage="Nenhum Registro Encontrado."
+					paginator="true" value="#{motoristaBean.motoristas}" var="motorista"
+					rows="6" reflow="true"
+					style="margin-top: 20px; margin-bottom: 40px; margin-left: 60px; margin-right: 60px;">
+				
+					<f:facet name="header">
+            <h:commandLink >
+                <p:graphicImage library="tcc" name="images/excel.jpg" width="32" />
+                <p:dataExporter type="xls" target="tabela" fileName="maquinas" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <h:graphicImage  library="tcc" name="images/pdf.png" width="27"/>
+                <p:dataExporter type="pdf" target="tabela" fileName="maquinas" encoding="ISO-8859-1"/>
+            </h:commandLink>
+        </f:facet>
+        
+					<p:column headerText="ID" style="width: 8% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{motorista.codigo}" />
+					</p:column>
+					
+
+					<p:column headerText="Categoria" filterBy="#{motorista.categoria}"  style="width: 15% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder; ">
+						<h:outputText value="#{motorista.categoria}" />
+					</p:column>
+					
+					<p:column headerText="Número CNH"  style="width: 20% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{motorista.numeroCNH}" />
+					</p:column>
+					
+					<p:column headerText="Validade CNH"  style="width: 15% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{motorista.dataValidadeCNH}">
+							<f:convertDateTime locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Funcionário" filterBy="#{motorista.funcionario.nome}"  style="width: 35% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+						<h:outputText value="#{motorista.funcionario.nome}" />
+					</p:column>
+
+					<p:column headerText="Opções" style="width: 28% ; font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" exportable="false">
+						<p:commandButton value="Excluir" icon="fa fa-trash"
+							actionListener="#{motoristaBean.excluir}"
+							update=":mensagem :formListagem:tabela" style="padding: 4px 6px  !important; ;"
+							disabled="#{autenticacaoBean.usuarioLogado.tipo == 'Secretaria'}">
+							<p:confirm header="Confirmação" message="Deseja excluir o motorista"
+								icon="fa fa-exclamation-triangle" />
+							<f:attribute name="motoristaSelecionado" value="#{motorista}" />
+						</p:commandButton>
+
+						<p:commandButton value="Editar" icon="fa fa-trash"
+							actionListener="#{motoristaBean.editar}"
+							update=":mensagem :formCadastro:painelCadastro"
+							oncomplete="PF('dialogo').show();" style="padding: 4px 6px  !important; ;">
+							<f:attribute name="motoristaSelecionado" value="#{motorista}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="fa fa-times-circle" />
+				</p:confirmDialog>
+			</div>
+			
+			<p:panelGrid columns="6" styleClass="panelgrid-botoesconsulta" layout="grid">  
+							<p:commandButton value="Cadastrar Novo Motorista" icon="fa fa-floppy-o" oncomplete="PF('dialogo').show();" actionListener="#{motoristaBean.novo}" 
+							update=":formCadastro:painelCadastro" style="margin-left: 95px; padding: 4px 6px  !important; ;">
+							</p:commandButton>
+						</p:panelGrid> 
+						
+		</h:form>
+
+		<p:dialog header="Cadastro de Motoristas" position="center"
+			widgetVar="dialogo" draggable="true" resizable="false" modal="true"
+			closable="false">
+
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="painelCadastro">
+				
+				<p:outputLabel value="ID" styleClass="minha-label"/>
+					<p:inputText maxlength="40" size="34" value="#{motoristaBean.motorista.codigo}" disabled="true"/>
+				
+				<p:outputLabel value="Funcionário *" styleClass="minha-label"/>
+					<p:selectOneMenu filter="true" value="#{motoristaBean.motorista.funcionario}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo 'Funcionário' é obrigatório">
+						<f:selectItem noSelectionOption="true" itemValue="" itemLabel="Selecione um funcionário" />
+						<f:selectItems value="#{motoristaBean.funcionarios}" var="funcionario"
+							itemValue="#{funcionario}" itemLabel="#{funcionario.nome}" />
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Categoria *" styleClass="minha-label"/>
+					<p:inputText maxlength="50" size="20"
+						value="#{motoristaBean.motorista.categoria}" required="true"
+						requiredMessage="O campo 'Categoria' é obrigatório!" styleClass="input-meu" />
+						
+						<p:outputLabel value="Numero CNH *" styleClass="minha-label"/>
+					<p:inputText maxlength="50" size="20"
+						value="#{motoristaBean.motorista.numeroCNH}" required="true"
+						requiredMessage="O campo 'Núnmero da CNH' é obrigatório!" styleClass="input-meu" />
+						
+						<p:outputLabel value="Validade CNH *" styleClass="minha-label"/>
+				<p:calendar  size="20" maxlength="8"  styleClass="input-meu"
+						value="#{motoristaBean.motorista.dataValidadeCNH}" required="true"
+						requiredMessage="O campo 'Validade da CNH' é obrigatório!"/>
+						
+					<p:outputLabel value="Data de Cadastro *" pattern="dd/MM/yyyy" locale="pt_BR" styleClass="minha-label"/>
+					 <p:calendar  size="20" maxlength="8" styleClass="input-meu"
+						value="#{motoristaBean.motorista.dataCadastro}" required="true"
+						requiredMessage="O campo 'Data de Cadastro' é obrigatório!" />
+						
+
+					
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Inserir" style="padding: 4px 6px  !important; ;"
+						actionListener="#{motoristaBean.salvar}"
+						update=":mensagem :formCadastro:painelCadastro :formListagem:tabela"
+						oncomplete="PF('dialogo').hide()" />
+					<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide()" style="padding: 4px 6px  !important; ;" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+	</ui:define>
+</ui:composition>

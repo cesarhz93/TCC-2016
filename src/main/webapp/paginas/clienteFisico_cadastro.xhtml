@@ -1,0 +1,324 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/Layout.xhtml">
+
+<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{clienteFisicoBean.carregarCadastro}" type="preRenderView" />
+			
+			<f:viewParam name="acao" value="#{clienteFisicoBean.acao}"/>
+		</f:metadata>
+		
+		<script>
+            function mascara(o, f) {
+              v_obj = o;
+              v_fun = f;
+              setTimeout("execmascara()", 1);
+            }
+            function execmascara() {
+              v_obj.value = v_fun(v_obj.value);
+            }
+         function valor(v) {
+        v = v.replace(/\D/g, "");
+        v = v.replace(/[0-9]{15}/, "invÃ¡lido");
+        v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 11 digitos
+        v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 8 digitos
+        v = v.replace(/(\d{1})(\d{5})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 5 digitos
+        v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2"); // coloca virgula antes dos
+        // Ãºltimos 2 digitos
+        return v;
+}
+                    </script>
+	</ui:define>
+
+	<ui:define name="content">
+		
+	
+		<h1 class="aw-page-title">
+			<i class="fa fw fa-users"></i> Cadastro de Clientes Físicos
+		</h1>
+		<p:separator style="margim-bottom: 5px; margin-bottom: 25px;"/>
+		
+				<h:form id="formCadastro" styleClass="formulario-cadastro">
+				
+				<p:toolbar
+			style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+			<f:facet name="left">
+				<i class="fa fa-floppy-o"></i><h:outputText value=" Dados do Cliente" />
+			</f:facet>
+		</p:toolbar>
+				
+					<div class="ui-grid ui-grid-responsive" style="margin-left: 15px;" id="div">
+					
+   						 <div class="ui-grid-row" style="margin-top: 8px; margin-bottom: 4px;" >
+					       	<div class="ui-grid-col-1">
+					       		<p:outputLabel value="ID" styleClass="minha-label" />
+					       	</div>
+					       	
+					        <div class="ui-grid-col-5">
+					        	<p:outputLabel value="Nome *" styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2">
+					        	<p:outputLabel value="CPF *"  styleClass="minha-label"/>
+					        </div>
+					        
+					         <div class="ui-grid-col-2">
+					        	<p:outputLabel value="RG *"  styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Profissão *" styleClass="minha-label"/>
+					        </div>
+					       </div>
+					       
+					        <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					       
+					        <div class="ui-grid-row">
+						        <div class="ui-grid-col-1">
+						        <!-- CÓDIGO -->
+						       		<p:inputText size="6" disabled="true" value="#{clienteFisicoBean.cliente.codigo}" styleClass="input-meu"/>
+						       	</div>
+						       	
+						        <div class="ui-grid-col-5" >
+						           <!-- NOME -->
+						       		 <p:inputText size="60" maxlength="50" value="#{clienteFisicoBean.cliente.nome}" styleClass="input-meu"
+						       		 required="true" requiredMessage="O campo 'Nome' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2">
+						           <!-- CPF -->
+						        	<p:inputMask mask="999.999.999-99" size="20" maxlength="14" value="#{clienteFisicoBean.cliente.cpf}" styleClass="input-meu"
+						        	required="true" requiredMessage="O campo 'CPF' é obrigatório"/>
+						        </div>
+						        
+						         <div class="ui-grid-col-2">
+						            <!-- RG -->
+						        	<p:inputText size="20" maxlength="12"  value="#{clienteFisicoBean.cliente.rg}" styleClass="input-meu"
+						        	required="true" requiredMessage="O campo 'RG' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2">
+						           <!-- PROFISSÃO -->
+						        	<p:inputText size="20" maxlength="40" value="#{clienteFisicoBean.cliente.profissao}" styleClass="input-meu"
+						        	required="true" requiredMessage="O campo 'Profissão' é obrigatório"/>
+						        </div>
+					  	  </div>
+					    
+					    <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					    
+					    <div class="ui-grid-row">
+					       	
+					        <div class="ui-grid-col-2" style="margin-top: 8px; margin-bottom: 4px;">
+					        	<p:outputLabel value="Data de Nascimento *"  styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2" style="margin-top: 10px;">
+					        	<p:outputLabel value="Sexo *"  styleClass="minha-label"/>
+					        </div>
+					        
+					         <div class="ui-grid-col-2" style="margin-top: 10px;">
+					        	<p:outputLabel value="Telefone Residencial"  styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2" style="margin-top: 10px;">
+					        	<p:outputLabel value="Telefone Celular *" styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-4"  style="margin-top: 10px;">
+					        	<p:outputLabel value="Email"  styleClass="minha-label"/>
+					        </div>
+					        
+					        
+					       	
+					      </div>
+					    
+					     <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					      
+					      <div class="ui-grid-row">
+						        <div class="ui-grid-col-2">
+						           <!-- DATA DE NASCIMENTO -->
+						       		 <p:calendar  size="20" maxlength="8" value="#{clienteFisicoBean.cliente.dataNascimento}" styleClass="input-meu"
+						       		 required="true" requiredMessage="O campo 'Data de Nascimento' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						           <!-- SEXO -->
+						        	<p:selectOneMenu style="font-family: 'Trebuchet MS' ;font-size: 13px;" maxlength="9" value="#{clienteFisicoBean.cliente.sexo}"
+						        	 required="true" requiredMessage="O campo 'Sexo' é obrigatório">
+										<f:selectItem itemLabel="Selecione seu sexo"  />
+										<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+										<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						            </p:selectOneMenu>
+						        </div>
+						        
+						         <div class="ui-grid-col-2">
+						            <!-- Residencial -->
+						        	<p:inputMask mask="(99) 9999-9999" size="20" maxlength="14" value="#{clienteFisicoBean.cliente.telefoneFixo}" styleClass="input-meu"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2">
+						           <!-- Celular -->
+						        	<p:inputText size="20" maxlength="15" value="#{clienteFisicoBean.cliente.telefoneCelular}" styleClass="input-meu"
+						        	 required="true" requiredMessage="O campo 'Telefone Celular' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-4">
+						           <!-- Email -->
+						       		<p:inputText size="45" maxlength="40" value="#{clienteFisicoBean.cliente.email}" styleClass="input-meu"/>
+						        </div>
+						       
+					  	  </div>
+					  	  
+					      
+					       <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					      
+					  
+						   
+						   <p:separator style="margin-top: 10px; color: #000000; margin-left: -15px;"/>
+						   
+						   <h3>Endereço</h3>
+						   
+						   <div class="ui-grid-row"  style="margin-bottom: 4px;">
+					       	<div class="ui-grid-col-5">
+					       		<p:outputLabel value="Rua *" styleClass="minha-label"/>
+					       	</div>
+					       	
+					        <div class="ui-grid-col-4">
+					        	<p:outputLabel value="Bairro *"  styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-1">
+					        	<p:outputLabel value="Número *"  styleClass="minha-label"/>
+					        </div>
+					        
+					         <div class="ui-grid-col-2">
+					        	<p:outputLabel value="CEP *"  styleClass="minha-label"/>
+					        </div>
+					       </div>
+					       
+					       <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					       
+					        <div class="ui-grid-row">
+						        <div class="ui-grid-col-5" >
+						           <!-- RUA -->
+						       		 <p:inputText size="59" maxlength="45" value="#{clienteFisicoBean.cliente.rua}" styleClass="input-meu"
+						       		  required="true" requiredMessage="O campo 'Rua' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-4">
+						           <!-- BAIRRO-->
+						       		 <p:inputText size="46" maxlength="45" value="#{clienteFisicoBean.cliente.bairro}" styleClass="input-meu"
+						       		   required="true" requiredMessage="O campo 'Bairro' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-1">
+						           <!-- NÚMERO -->
+						       		 <p:inputText size="6" maxlength="6" value="#{clienteFisicoBean.cliente.numero}" styleClass="input-meu"
+						       		   required="true" requiredMessage="O campo 'Número' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2" >
+						           <!-- CEP -->
+						       		 <p:inputMask mask="99999-999" size="20" maxlength="9" value="#{clienteFisicoBean.cliente.cep}" styleClass="input-meu"
+						       		   required="true" requiredMessage="O campo 'CEP' é obrigatório"/>
+						        </div>
+						   </div>
+						   
+						    <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+						   
+						   <div class="ui-grid-row"  style="margin-top: 10px; margin-bottom: 4px;">
+					       	<div class="ui-grid-col-3">
+					       		<p:outputLabel value="Cidade *" styleClass="minha-label"/>
+					       	</div>
+					       	
+					        <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Estado *"  styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-4">
+					        	<p:outputLabel value="Complemento" styleClass="minha-label"/>
+					        </div>
+					        
+					         <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Data de Cadastro *" styleClass="minha-label"/>
+					        </div>
+					       </div>
+					       
+					        <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					       
+					       <div class="ui-grid-row">
+						        <div class="ui-grid-col-3" >
+						           <!-- cidade -->
+						       		 <p:inputText size="34" maxlength="40" value="#{clienteFisicoBean.cliente.cidade}" styleClass="input-meu"
+						       		   required="true" requiredMessage="O campo 'Cidade' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2" style="margin-top: 2px; font-family: 'Trebuchet MS' ;font-size: 12px;">
+						           <!-- estado-->
+						           <p:selectOneMenu style="font-family: 'Trebuchet MS' ;font-size: 13px;" value="#{clienteFisicoBean.cliente.estado}"
+						             required="true" requiredMessage="O campo 'Estado' é obrigatório">
+						       			<f:selectItem itemLabel="Selecione um estado" />
+										<f:selectItem itemLabel="Acre" itemValue="Acre" />
+										<f:selectItem itemLabel="Alagoas" itemValue="Alagoas" />
+										<f:selectItem itemLabel="Amazonas" itemValue="Amazonas" />
+										<f:selectItem itemLabel="Amapá" itemValue="Amapá" />
+										<f:selectItem itemLabel="Bahia" itemValue="Bahia" />
+										<f:selectItem itemLabel="Ceará" itemValue="Ceará" />
+										<f:selectItem itemLabel="Distrito Federal" itemValue="Distrito Federal" />
+										<f:selectItem itemLabel="Espírito Santo" itemValue="Espírito Santo" />
+										<f:selectItem itemLabel="Goiás" itemValue="Goiás" />
+										<f:selectItem itemLabel="Maranhão" itemValue="Maranhão" />
+										<f:selectItem itemLabel="Mato Grosso" itemValue="Mato Grosso" />
+										<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="Mato Grosso do Sul" />
+										<f:selectItem itemLabel="Minas Gerais" itemValue="Minas Gerais" />
+										<f:selectItem itemLabel="Pará" itemValue="Pará" />
+										<f:selectItem itemLabel="Paraíba" itemValue="Paraíba" />
+										<f:selectItem itemLabel="Paraná" itemValue="Paraná" />
+										<f:selectItem itemLabel="Pernambuco" itemValue="Pernambuco" />
+										<f:selectItem itemLabel="Piauí" itemValue="Piauí" />
+										<f:selectItem itemLabel="Rio de Janeiro" itemValue="Rio de Janeiro" />
+										<f:selectItem itemLabel="Rio Grande do Norte" itemValue="Rio Grande do Norte" />
+										<f:selectItem itemLabel="Rio Grande do Sul" itemValue="Rio Grande do Sul" />
+										<f:selectItem itemLabel="Rondônia" itemValue="Rondônia" />
+										<f:selectItem itemLabel="Roraima" itemValue="Roraima" />
+										<f:selectItem itemLabel="Santa Catarina" itemValue="Santa Catarina" />
+										<f:selectItem itemLabel="Sergipe" itemValue="Sergipe" />
+										<f:selectItem itemLabel="São Paulo" itemValue="São Paulo" />
+										<f:selectItem itemLabel="Tocantins" itemValue="Tocantins" />
+									</p:selectOneMenu>
+						        </div>
+						        
+						        <div class="ui-grid-col-4">
+						           <!-- complemento -->
+						       		 <p:inputText size="46" maxlength="50" value="#{clienteFisicoBean.cliente.complemento}" styleClass="input-meu"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2">
+						           <!-- data de Cadastro -->
+						       		  <p:calendar  size="20"  maxlength="8" value="#{clienteFisicoBean.cliente.dataCadastro}" styleClass="input-meu"
+						       		    required="true" requiredMessage="O campo 'Data de Cadastro' é obrigatório"/>
+						        </div>
+						   </div>
+						   
+						   <p:separator  style="margin-top: 20px; color: #000000; margin-left: -15px;"/>
+						        
+						 <p:panelGrid columns="5" styleClass="panelgrid-meu" layout="grid">  
+						   <p:commandButton style="padding: 4px 6px  !important; ;" value="Inserir" icon="fa fa-floppy-o" actionListener="#{clienteFisicoBean.salvar}" 
+						   update=":mensagem :formCadastro" disabled="#{clienteFisicoBean.acao == 'Editar'}"/>
+						   
+						   <p:commandButton style="padding: 4px 6px  !important; ;" value="Editar" icon="fa fa-repeat" actionListener="#{clienteFisicoBean.editar}" update=":mensagem" 
+						   action="/paginas/clienteFisico_pesquisa.xhtml" disabled="#{clienteFisicoBean.acao == 'Novo'}"/>
+						   <p:commandButton style="padding: 4px 6px  !important; ;" value="Limpar" icon="fa fa-eraser" actionListener="#{clienteFisicoBean.limpar}" update=":formCadastro" process="@this"/>
+						   <p:button style="padding: 4px 6px  !important; ;" value="Listar" icon="fa fa-search" outcome="/paginas/clienteFisico_pesquisa.xhtml"/>
+						</p:panelGrid>                
+					</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

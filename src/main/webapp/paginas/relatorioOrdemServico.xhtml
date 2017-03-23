@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/Layout.xhtml">
+	
+	<ui:define name="metadata">
+		<f:metadata>	
+			<f:event listener="#{ordemServicoBean.listar}" type="preRenderView"/>
+		</f:metadata>
+	</ui:define>
+
+	
+	<ui:define name="content">
+
+		<h1 class="aw-page-title"><i class="fa fa-file-pdf-o"></i> Relatório de Ordens de Serviço</h1>
+		
+		<p:separator style="margim-bottom: 5px; margin-bottom: 25px;"/>
+		
+		<h:form id="formConsulta" styleClass="formulario-consulta">
+		
+		<p:toolbar style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+			<f:facet name="left">
+				<i class="fa fw fa-search"></i> <h:outputText value=" Consulta" />
+			</f:facet>
+		</p:toolbar>
+		
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." rows="5" paginator="true" value="#{ordemServicoBean.listaOrdemServico}" var="ordemServico" 
+			style="margin-top: 30px;">
+			
+			<f:facet name="header">
+            <h:commandLink rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}" >
+                <p:graphicImage library="tcc" name="images/excel.jpg" width="32" />
+                <p:dataExporter type="xls" target="tabela" fileName="maquinas" />
+            </h:commandLink>
+ 
+            <h:commandLink rendered="#{autenticacaoBean.temPermissoes(['Administrador', 'Secretaria'])}">
+                <h:graphicImage  library="tcc" name="images/pdf.png" width="27"/>
+                <p:dataExporter type="pdf" target="tabela" fileName="maquinas" encoding="ISO-8859-1"/>
+            </h:commandLink>
+        </f:facet>
+			
+				<p:column style="width: 12px;" exportable="false">
+					<p:rowToggler/>
+				</p:column>
+				
+				<p:column headerText="ID" style="width: 6% ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{ordemServico.codigo}"/>
+				</p:column>
+				
+				<p:column headerText="Cliente" style="width: 12%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" filterBy="#{ordemServico.clienteFisico.nome} #{ordemServico.clienteJuridico.nomeFantasia}" >
+					<h:outputText value="#{ordemServico.clienteFisico.nome} #{ordemServico.clienteJuridico.nomeFantasia}"/>
+				</p:column>
+
+				<p:column headerText="Funcionário" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{ordemServico.funcionario.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Motorista" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" filterBy="#{locacaoMaquina.motorista.funcionario.nome}">
+					<h:outputText value="#{ordemServico.locacaoMaquina.motorista.funcionario.nome}"/>
+				</p:column>
+				
+			
+				<p:column headerText="Data Realização" style="width: 9%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" filterBy="#{ordemServico.dataRealizacao}">
+					<h:outputText value="#{ordemServico.dataRealizacao}">
+						<f:convertDateTime locale="pt_BR" pattern="dd/MM/yy" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Valor Total da Locação" style="width: 9%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="R$ #{ordemServico.locacaoMaquina.valorTotal}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				
+				
+				<p:column headerText="Valor Total da OS" style="width: 10%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;" filterBy="#{ordemServico.valorTotal}">
+					<h:outputText value="R$ #{ordemServico.valorTotal}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				
+				<p:rowExpansion>
+					<p:dataTable emptyMessage="Nenhum registro encontrado." value="#{ordemServico.itensOrdemServico}" var="itemOrdemServico">
+					
+					<p:column headerText="Serviços" style="width: 8%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{itemOrdemServico.tipoServico.tipo}"/>
+				</p:column>
+				
+				<p:column headerText="Quantidade em Horas" style="width: 9%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{itemOrdemServico.quantidade}"/>
+				</p:column>
+				
+				<p:column headerText="Valor Parcial" style="width: 9%; ;font-size: 14px; font-family: 'Trebuchet MS'; font-weight: bolder;">
+					<h:outputText value="#{itemOrdemServico.valorUnitario}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				
+				
+				
+					</p:dataTable>
+				</p:rowExpansion>
+				
+
+			</p:dataTable>
+			
+			
+				
+			
+							
+					<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
+			
+						<p:panelGrid columns="5" styleClass="panelgrid-botoesrelatorio" layout="grid" style="margin-top: -40px;">  
+						   <p:commandButton value="Imprimir" icon="fa fa-print" style="padding: 4px 6px  !important; ; margin-left: 35px;" actionListener="#{ordemServicoBean.imprimir}"  disabled="#{autenticacaoBean.usuarioLogado.tipo == 'Motorista'}"/>
+						   <p:button value="Voltar" icon="fa fa-repeat" outcome="/paginas/home.xhtml" style="padding: 4px 6px  !important; ;"/> 
+						</p:panelGrid> 
+						
+						
+		</h:form>
+	</ui:define>
+</ui:composition>
+

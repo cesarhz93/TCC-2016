@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/theme.css.xhtml?ln=primefaces-sentinel" />
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/fa/font-awesome.css.xhtml?ln=primefaces&amp;v=5.3" />
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/primefaces.css.xhtml?ln=primefaces&amp;v=5.3" />
+<script type="text/javascript"
+	src="/sentinel/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=5.3"></script>
+<script type="text/javascript"
+	src="/sentinel/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=5.3"></script>
+<script type="text/javascript"
+	src="/sentinel/javax.faces.resource/primefaces.js.xhtml?ln=primefaces&amp;v=5.3"></script>
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/charts/charts.css.xhtml?ln=primefaces&amp;v=5.3" />
+<script type="text/javascript"
+	src="/sentinel/javax.faces.resource/charts/charts.js.xhtml?ln=primefaces&amp;v=5.3"></script>
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/css/font-icon-layout.css.xhtml?ln=sentinel-layout" />
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/css/sentinel-layout.css.xhtml?ln=sentinel-layout" />
+<link type="text/css" rel="stylesheet"
+	href="/sentinel/javax.faces.resource/css/core-layout.css.xhtml?ln=sentinel-layout" />
+<script type="text/javascript">if(window.PrimeFaces){}</script>
+<title>PrimeFaces Sentinel</title>
+<script type="text/javascript"
+	src="/sentinel/javax.faces.resource/js/layout.js.xhtml?ln=sentinel-layout"></script>
+<script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1'];
+                this.cfg.grid = {
+                    background: '#f3f5f7',
+                    borderColor: '#e5ebf0',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#9fadb5'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+<style type="text/css">
+.jqplot-target, .jqplot-axis {
+	color: #9fadb5;
+}
+</style>
+</head>
+<body>
+
+
+	<div id="layout-header" class="Unselectable fontRegular">
+		<a href="dashboard.xhtml" id="layout-logo"><img
+			src="/sentinel/javax.faces.resource/images/LOGO.svg.xhtml?ln=sentinel-layout"
+			class="Fleft" /> <span
+			class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span
+				class="softblue">SENTINEL</span><span class="hardblue">LAYOUT</span></span>
+		</a>
+		<ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+			<li class="Fleft BordRadHalf TexAlCenter"><i
+				class="icon-user-male"></i>
+				<ul
+					class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+					<li class="Animated05"><a class="white Unselectable"><i
+							class="icon-user-male Fs26 OvHidden"></i><span class="Fs18">Walter
+								White<br />
+							<span class="Fs10">Last Login - 18.08.2014</span>
+						</span></a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-stopwatch-1"></i>User Tasks</a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-users-2"></i>Create New User</a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-sliders"></i>User Preferences</a></li>
+				</ul></li>
+			<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i><span
+				class="alertBubble BordRad10 Fs9">166</span>
+				<ul
+					class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i
+							class="icon-chat-empty yellow"></i>Gustavo Fring<br />
+						<span class="Fs10">What does a man do Walter?</span></a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i
+							class="icon-chat-empty"></i>Skyler White<br />
+						<span class="Fs10">Where are you?.</span></a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i
+							class="icon-chat-empty red"></i>Hank Schrader<br />
+						<span class="Fs10">Barbecue photos from last weekend.</span></a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i
+							class="icon-chat-empty red"></i>Jesse Pinkman<br />
+						<span class="Fs10">Mr. White.</span></a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i
+							class="icon-chat-empty"></i>Heisenberg<br />
+						<span class="Fs10">I am the one who knocks.</span></a></li>
+				</ul></li>
+			<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-bell"></i><span
+				class="alertBubble BordRad10 Fs9">24</span>
+				<ul
+					class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i class="icon-flag red"></i>New
+							Products</a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i
+							class="icon-flag yellow"></i>Today Sales Reports</a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i class="icon-flag red"></i>Visit
+							Reports</a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i class="icon-flag red"></i>Sales
+							Reports</a></li>
+					<li class="Animated05"><a href="#"
+						class="white Unselectable TexAlRight"><i class="icon-flag"></i>Task
+							Alerts</a></li>
+				</ul></li>
+			<li class="Fleft BordRadHalf TexAlCenter"><i
+				class="icon-wrench-1"></i>
+				<ul
+					class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-sun"></i>System Settings</a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-lifebuoy"></i>Help Desk</a></li>
+				</ul></li>
+			<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
+				<ul
+					class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+					<li class="Animated05"><a href="login.xhtml"
+						class="white Unselectable"><i class="icon-ccw-1"></i>Restart</a></li>
+					<li class="Animated05"><a href="#" class="white Unselectable"><i
+							class="icon-logout"></i>Log Out</a></li>
+				</ul></li>
+		</ul>
+		<!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+		<ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+			<li
+				class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i
+				class="icon-th-1"></i></li>
+		</ul>
+		<!-- ****** -->
+	</div>
+
+	<div id="layout-menubar" class="Unselectable fontRegular">
+		<div class="layout-menubarinner-box" id="buttonArea">
+			<a href="#" id="layout-menubar-resize" class="BordRad3"
+				title="Menu Resize"><i class="icon-th-list-2"></i></a> <a href="#"
+				id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i
+				class="icon-menu"></i></a>
+		</div>
+
+		<div class="layout-menubarinner-box" id="searchArea">
+			<i class="icon-search floatLeft gray"></i> <input type="text"
+				class="layout-menubar-search floatLeft Animated05"
+				placeholder="Search Here" />
+		</div>
+		<form id="menuform" name="menuform" method="post"
+			action="/sentinel/dashboard.xhtml"
+			enctype="application/x-www-form-urlencoded">
+			<input type="hidden" name="menuform" value="menuform" />
+			<ul id="menuform:sm_leftmenu" class="layout-menubar-container">
+				<li id="menuform:sm_dashboard" role="menuitem"
+					class="layout-menubar-active"><a
+					href="/sentinel/dashboard.xhtml"
+					onclick="Sentinel.toggleSubMenu(this)"><i
+						class="icon-home-outline yellow i"></i> Dashboard</a></li>
+				<li id="menuform:sm_sentineltheme" role="menuitem"><a href="#"
+					onclick="Sentinel.toggleSubMenu(this);return false;"><i
+						class="icon-gauge yellow i"></i>Sentinel Theme<i
+						class="icon-angle-down Fright"></i></a>
+				<ul class="layout-menubar-submenu-container" role="menu">
+						<li id="menuform:sm_sample" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/sample.xhtml"><i
+								class="icon-columns yellow i"></i> Sample Page</a></li>
+						<li id="menuform:sm_forms" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/forms.xhtml"><i
+								class="icon-doc-text-1 yellow i"></i> Forms</a></li>
+						<li id="menuform:sm_datacomponents" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/data.xhtml"><i
+								class="icon-th yellow i"></i> Data Components</a></li>
+						<li id="menuform:sm_datatable" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/datatable.xhtml"><i
+								class="icon-table yellow i"></i> DataTable</a></li>
+						<li id="menuform:sm_panels" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/panel.xhtml"><i
+								class="icon-magic yellow i"></i> Panels</a></li>
+						<li id="menuform:sm_overlays" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/overlay.xhtml"><i
+								class="icon-newspaper yellow i"></i> Overlays</a></li>
+						<li id="menuform:sm_menus" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/menu.xhtml"><i
+								class="icon-menu yellow i"></i> Menus</a></li>
+						<li id="menuform:sm_messages" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/messages.xhtml"><i
+								class="icon-bell yellow i"></i> Messages</a></li>
+						<li id="menuform:sm_fu" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/file.xhtml"><i
+								class="icon-docs yellow i"></i> FileUpload</a></li>
+						<li id="menuform:sm_misc" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/misc.xhtml"><i
+								class="icon-beaker yellow i"></i> Misc</a></li>
+					</ul></li>
+				<li id="menuform:sm_dp" role="menuitem"><a href="#"
+					onclick="Sentinel.toggleSubMenu(this);return false;"><i
+						class="icon-pin-outline yellow i"></i>Default Pages<i
+						class="icon-angle-down Fright"></i></a>
+				<ul class="layout-menubar-submenu-container" role="menu">
+						<li id="menuform:sm_empty" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/empty-page.xhtml"><i
+								class="icon-plus-squared-alt yellow i"></i> Empty Page</a></li>
+						<li id="menuform:sm_login" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/login.xhtml"><i
+								class="icon-login yellow i"></i> Login Page</a></li>
+						<li id="menuform:sm_error" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/error.xhtml"><i
+								class="icon-warning-empty yellow i"></i> Error Page</a></li>
+						<li id="menuform:sm_404" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/404.xhtml"><i
+								class="icon-warning-empty yellow i"></i> 404 Page</a></li>
+						<li id="menuform:sm_access" role="menuitem"><a
+							class="marginLevel-1" href="/sentinel/access-denied.xhtml"><i
+								class="icon-warning-empty yellow i"></i> Access Denied Page</a></li>
+					</ul></li>
+				<li id="menuform:sm_menu" role="menuitem"><a href="#"
+					onclick="Sentinel.toggleSubMenu(this);return false;"><i
+						class="icon-sitemap yellow i"></i>Menu Hierarchy<i
+						class="icon-angle-down Fright"></i></a>
+				<ul class="layout-menubar-submenu-container" role="menu">
+						<li id="menuform:sm_sub1" role="menuitem"><a href="#"
+							onclick="Sentinel.toggleSubMenu(this);return false;"
+							class="marginLevel-1"><i class="icon-folder-empty yellow i"></i>Submenu
+								1<i class="icon-angle-down Fright"></i></a>
+						<ul class="layout-menubar-submenu-container" role="menu">
+								<li id="menuform:sm_sub1_1" role="menuitem"><a href="#"
+									onclick="Sentinel.toggleSubMenu(this);return false;"
+									class="marginLevel-2"><i class="icon-folder-empty yellow i"></i>Submenu
+										1.1<i class="icon-angle-down Fright"></i></a>
+								<ul class="layout-menubar-submenu-container" role="menu">
+										<li id="menuform:sm_sub1_1_1" role="menuitem"><a href="#"
+											onclick="Sentinel.toggleSubMenu(this);return false;"
+											class="marginLevel-3"><i
+												class="icon-folder-empty yellow i"></i>Submenu 1.1.1<i
+												class="icon-angle-down Fright"></i></a>
+										<ul class="layout-menubar-submenu-container" role="menu">
+												<li id="menuform:sm_lnk1" role="menuitem"><a
+													class="marginLevel-4" href="/sentinel/empty-page.xhtml"><i
+														class="icon-link yellow i"></i> Link 1</a></li>
+												<li id="menuform:sm_lnk2" role="menuitem"><a
+													class="marginLevel-4" href="/sentinel/empty-page.xhtml"><i
+														class="icon-link yellow i"></i> Link 2</a></li>
+												<li id="menuform:sm_lnk3" role="menuitem"><a
+													class="marginLevel-4" href="/sentinel/empty-page.xhtml"><i
+														class="icon-link yellow i"></i> Link 3</a></li>
+											</ul></li>
+									</ul></li>
+							</ul></li>
+					</ul></li>
+				<li id="menuform:sm_fonts" role="menuitem"><a
+					href="/sentinel/font-icons.xhtml"
+					onclick="Sentinel.toggleSubMenu(this)"><i
+						class="icon-book yellow i"></i> Font Icons</a></li>
+				<li id="menuform:sm_orientation" role="menuitem"><a href="#"
+					onclick="Sentinel.toggleSubMenu(this);return false;"><i
+						class="icon-align-right yellow i"></i>Orientation<i
+						class="icon-angle-down Fright"></i></a>
+				<ul class="layout-menubar-submenu-container" role="menu">
+						<li id="menuform:sm_rtl" role="menuitem"><a
+							class="marginLevel-1" href="#"
+							onclick="$('body').addClass('ui-sentinel-rtl');return false;;PrimeFaces.ab({s:&quot;menuform:sm_rtl&quot;,f:&quot;menuform&quot;});return false;"><i
+								class="icon-align-right yellow i"></i> RTL</a></li>
+						<li id="menuform:sm_ltr" role="menuitem"><a
+							class="marginLevel-1" href="#"
+							onclick="$('body').removeClass('ui-sentinel-rtl');return false;;PrimeFaces.ab({s:&quot;menuform:sm_ltr&quot;,f:&quot;menuform&quot;});return false;"><i
+								class="icon-align-left yellow i"></i> LTR</a></li>
+					</ul></li>
+				<li id="menuform:sm_user" role="menuitem"><a
+					href="/sentinel/empty-page.xhtml"
+					onclick="Sentinel.toggleSubMenu(this)"><i
+						class="icon-vcard yellow i"></i> User Profile</a></li>
+				<li id="menuform:sm_tasks" role="menuitem"><a
+					href="/sentinel/empty-page.xhtml"
+					onclick="Sentinel.toggleSubMenu(this)"><i
+						class="icon-tasks yellow i"></i> Tasks</a></li>
+				<li id="menuform:sm_contact" role="menuitem"><a
+					href="/sentinel/empty-page.xhtml"
+					onclick="Sentinel.toggleSubMenu(this)"><i
+						class="icon-phone yellow i"></i> Contact</a></li>
+				<li id="menuform:sm_doc" role="menuitem"><a
+					href="/sentinel/documentation.xhtml"
+					onclick="Sentinel.toggleSubMenu(this)"><i
+						class="icon-graduation-cap yellow i"></i> Documentation</a></li>
+			</ul>
+			<script type="text/javascript">Sentinel.restoreMenuState();</script>
+			<input type="hidden" name="javax.faces.ViewState"
+				id="j_id1:javax.faces.ViewState:0"
+				value="-8450402822902730570:-1332149153964468309" autocomplete="off" />
+		</form>
+	</div>
+
+	<div id="layout-portlets-cover" class="fontRegular">
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="EmptyBox20"></div>
+
+				<div class="Container25 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt15"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							style="min-height: 300px;" data-widget="widget_j_idt15">
+							<div id="j_idt15_content"
+								class="ui-panel-content ui-widget-content">
+								<i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+								<div class="Fs24 Fright MarTop10 leaden Wid70">
+									<span class="hardblue">Walter White</span>, Welcome
+								</div>
+								<div class="Fs12 Fright leaden Wid70">
+									You have <span class="red">3 unread messages</span> and <span
+										class="red"> 32 tasks</span> !
+								</div>
+								<div class="EmptyBox10"></div>
+								<hr id="j_idt17"
+									class="ui-separator ui-state-default ui-corner-all Wid100" />
+								<div class="EmptyBox10"></div>
+								<div class="Fs16 Fright">
+									<a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i
+										class="icon-briefcase hardblue"> Tasks (32)</i></a> <a href="#"
+										class="DispInlBlock Fleft Fs16 MarRight20"><i
+										class="icon-bell-alt hardblue"> Messages (3)</i></a> <a href="#"
+										class="DispInlBlock Fleft Fs16 MarRight20"><i
+										class="icon-cog-alt hardblue"> Settings</i></a>
+								</div>
+								<div class="EmptyBox10"></div>
+								<hr id="j_idt19"
+									class="ui-separator ui-state-default ui-corner-all Wid100" />
+								<div class="EmptyBox10"></div>
+								<i class="icon-key softgray MarRight10 Fs14 Fright"> Your
+									Last Login - 18.08.2014, 18:30</i>
+								<div class="EmptyBox10"></div>
+								<hr id="j_idt21"
+									class="ui-separator ui-state-default ui-corner-all Wid100" />
+							</div>
+						</div>
+						<script id="j_idt15_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt15",{id:"j_idt15"});</script>
+					</div>
+				</div>
+
+				<div class="Container25 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt23"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							style="min-height: 300px;" data-widget="widget_j_idt23">
+							<div id="j_idt23_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Container">
+									<i
+										class=" icon-data-science-inv Fs50 Fleft Wid25 orange TexAlCenter"></i>
+									<div class="Fs24 Fright MarTop10 leaden Wid70">Visitors
+										Report</div>
+									<div class="Fs12 Fright leaden Wid70">
+										Today <span class="red">2.280</span> visitors,<span
+											class="red">15%</span> higher than last week
+									</div>
+									<div class="EmptyBox10"></div>
+									<hr id="j_idt25"
+										class="ui-separator ui-state-default ui-corner-all Wid100" />
+									<div class="EmptyBox10"></div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										Overall Visits<br />
+										<span class="Fs24 orange">13.760</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										Today's Visits<br />
+										<span class="Fs24 red">2.280</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid100 TexAlCenter">
+										Online Visitors<br />
+										<span class="Fs24 hardblue">134</span>
+									</div>
+									<div class="EmptyBox10"></div>
+									<hr id="j_idt27"
+										class="ui-separator ui-state-default ui-corner-all Wid100" />
+									<a href="#" class="DispInlBlock Fs14 Fright MarRight10"><i
+										class="icon-doc-1 orange"> Get Full Report</i></a>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt23_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt23",{id:"j_idt23"});</script>
+					</div>
+				</div>
+
+				<div class="Container25 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt30"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							style="min-height: 300px;" data-widget="widget_j_idt30">
+							<div id="j_idt30_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Container">
+									<i class="icon-rocket Fs50 Fleft Wid25 red TexAlCenter"></i>
+									<div class="Fs24 Fright MarTop10 leaden Wid70">Sales
+										Report</div>
+									<div class="Fs18 Fright leaden Wid70">
+										Totally <span class="red">$ 132.875,45</span>
+									</div>
+									<div class="EmptyBox10"></div>
+									<hr id="j_idt32"
+										class="ui-separator ui-state-default ui-corner-all Wid100" />
+									<div class="EmptyBox10"></div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										4th Quarter<br />
+										<span class="Fs20 orange">--</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										3rd Quarter<br />
+										<span class="Fs20 orange">$13.760</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										2nd Quarter<br />
+										<span class="Fs20 red">$23.567</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										1st Quarter<br />
+										<span class="Fs20 hardblue">$2.370</span>
+									</div>
+									<div class="EmptyBox10"></div>
+									<hr id="j_idt34"
+										class="ui-separator ui-state-default ui-corner-all Wid100" />
+									<a href="#" class="DispInlBlock Fs14 Fright MarRight10"><i
+										class="icon-doc-1 orange"> Get Full Report</i></a>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt30_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt30",{id:"j_idt30"});</script>
+					</div>
+				</div>
+
+				<div class="Container25 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt37"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							style="min-height: 300px" data-widget="widget_j_idt37">
+							<div id="j_idt37_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Fs24 MarTop10 leaden Wid100 TexAlCenter">Customer
+									Report</div>
+								<div id="j_idt39" style="height: 200px"></div>
+								<script id="j_idt39_s" type="text/javascript">$(function(){PrimeFaces.cw('Chart','widget_j_idt39',{id:'j_idt39',type:'pie',responsive:true,data:[[["Brand 1",540],["Brand 2",325],["Brand 3",702],["Brand 4",421]]],extender:skinPie,datatip:true,datatipFormat:"%s - %d"},'charts');});</script>
+							</div>
+						</div>
+						<script id="j_idt37_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt37",{id:"j_idt37"});</script>
+					</div>
+				</div>
+
+				<div class="EmptyBox10"></div>
+			</div>
+		</div>
+
+		<div class="Container100 BorBotLeaden ui-fluid">
+			<div class="ContainerIndent">
+				<div class="EmptyBox10"></div>
+
+				<div class="Container50 Responsive50">
+					<div class="ContainerIndent">
+						<div id="j_idt41"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							style="min-height: 400px;" data-widget="widget_j_idt41">
+							<div id="j_idt41_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Container100 Responsive Fs20">
+									<i class="icon-chart-bar"></i> Visits Chart
+								</div>
+								<div class="Container100">
+									<div id="j_idt43" style="height: 300px; margin-top: 10px"></div>
+									<script id="j_idt43_s" type="text/javascript">$(function(){PrimeFaces.cw('Chart','widget_j_idt43',{id:'j_idt43',type:'line',responsive:true,data:[[[1,2],[2,1],[3,3],[4,6],[5,8]],[[1,6],[2,3],[3,2],[4,7],[5,9]]],title:"Linear Chart",legendPosition:"e",extender:skinChart,axes:{xaxis: {label:"",renderer:$.jqplot.LinearAxisRenderer,tickOptions:{angle:0}},yaxis: {label:"",min:0,max:10,renderer:$.jqplot.LinearAxisRenderer,tickOptions:{angle:0}}},series:[{label:'Series 1',renderer: $.jqplot.LineRenderer,showLine:true,markerOptions:{show:true, style:'filledCircle'}},{label:'Series 2',renderer: $.jqplot.LineRenderer,showLine:true,markerOptions:{show:true, style:'filledCircle'}}],animate:true,datatip:true},'charts');});</script>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt41_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt41",{id:"j_idt41"});</script>
+					</div>
+				</div>
+
+				<div class="Container50 Responsive50">
+					<div class="ContainerIndent">
+						<div id="j_idt46"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							style="min-height: 400px;" data-widget="widget_j_idt46">
+							<div id="j_idt46_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Container">
+									<div class="Container50 Responsive Fs20">
+										<i class="icon-doc-text"></i> Cars Sales Ranks
+									</div>
+									<div class="Container50 Responsive Fs12">
+										<div id="j_idt48"
+											class="ui-selectcheckboxmenu ui-widget ui-state-default ui-corner-all Fright">
+											<div class="ui-helper-hidden-accessible">
+												<input id="j_idt48_focus" name="j_idt48_focus" type="text"
+													readonly="readonly" />
+											</div>
+											<div class="ui-helper-hidden">
+												<input id="j_idt48:0" name="j_idt48" type="checkbox"
+													value="1" data-escaped="true" /><label for="j_idt48:0">Brazil</label><input
+													id="j_idt48:1" name="j_idt48" type="checkbox" value="2"
+													data-escaped="true" /><label for="j_idt48:1">Germany</label><input
+													id="j_idt48:2" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:2">United
+													States</label><input id="j_idt48:3" name="j_idt48" type="checkbox"
+													value="3" data-escaped="true" /><label for="j_idt48:3">India</label><input
+													id="j_idt48:4" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:4">Mexico</label><input
+													id="j_idt48:5" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:5">Italy</label><input
+													id="j_idt48:6" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:6">France</label><input
+													id="j_idt48:7" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:7">Spain</label><input
+													id="j_idt48:8" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:8">Colombia</label><input
+													id="j_idt48:9" name="j_idt48" type="checkbox" value="3"
+													data-escaped="true" /><label for="j_idt48:9">Turkey</label>
+											</div>
+											<span class="ui-selectcheckboxmenu-label-container"><label
+												class="ui-selectcheckboxmenu-label ui-corner-all">Filter
+													With Country</label></span>
+											<div
+												class="ui-selectcheckboxmenu-trigger ui-state-default ui-corner-right">
+												<span class="ui-icon ui-icon-triangle-1-s"></span>
+											</div>
+										</div>
+										<script id="j_idt48_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectCheckboxMenu","widget_j_idt48",{id:"j_idt48",filter:true,filterMatchMode:"startsWith"});});</script>
+									</div>
+									<div class="EmptyBox10"></div>
+									<div class="Container100">
+										<form id="form" name="form" method="post"
+											action="/sentinel/dashboard.xhtml"
+											enctype="application/x-www-form-urlencoded">
+											<input type="hidden" name="form" value="form" />
+											<div id="form:singleDT"
+												class="ui-datatable ui-widget ui-datatable-reflow">
+												<div id="form:singleDT_paginator_top"
+													class="ui-paginator ui-paginator-top ui-widget-header ui-corner-top"
+													role="navigation">
+													<span
+														class="ui-paginator-first ui-state-default ui-corner-all ui-state-disabled"><span
+														class="ui-icon ui-icon-seek-first">p</span></span><span
+														class="ui-paginator-prev ui-state-default ui-corner-all ui-state-disabled"><span
+														class="ui-icon ui-icon-seek-prev">p</span></span><span
+														class="ui-paginator-pages"><span
+														class="ui-paginator-page ui-state-default ui-state-active ui-corner-all"
+														tabindex="0">1</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">2</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">3</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">4</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">5</span></span><span
+														class="ui-paginator-next ui-state-default ui-corner-all"
+														tabindex="0"><span
+														class="ui-icon ui-icon-seek-next">p</span></span><span
+														class="ui-paginator-last ui-state-default ui-corner-all"
+														tabindex="0"><span class="ui-icon ui-icon-seek-end">p</span></span>
+												</div>
+												<div class="ui-datatable-tablewrapper">
+													<table role="grid">
+														<thead id="form:singleDT_head">
+															<tr role="row">
+																<th id="form:singleDT:j_idt60"
+																	class="ui-state-default ui-sortable-column"
+																	role="columnheader"><span class="ui-column-title">Id</span><span
+																	class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th>
+																<th id="form:singleDT:j_idt62"
+																	class="ui-state-default ui-sortable-column"
+																	role="columnheader"><span class="ui-column-title">Year</span><span
+																	class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th>
+																<th id="form:singleDT:j_idt64"
+																	class="ui-state-default ui-sortable-column"
+																	role="columnheader"><span class="ui-column-title">Brand</span><span
+																	class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th>
+																<th id="form:singleDT:j_idt66"
+																	class="ui-state-default ui-sortable-column"
+																	role="columnheader"><span class="ui-column-title">Color</span><span
+																	class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th>
+															</tr>
+														</thead>
+														<tbody id="form:singleDT_data"
+															class="ui-datatable-data ui-widget-content">
+															<tr data-ri="0"
+																class="ui-widget-content ui-datatable-even" role="row">
+																<td role="gridcell">7f81083d</td>
+																<td role="gridcell">1978</td>
+																<td role="gridcell">Jaguar</td>
+																<td role="gridcell">Black</td>
+															</tr>
+															<tr data-ri="1"
+																class="ui-widget-content ui-datatable-odd" role="row">
+																<td role="gridcell">e5a976bc</td>
+																<td role="gridcell">1982</td>
+																<td role="gridcell">Volkswagen</td>
+																<td role="gridcell">Silver</td>
+															</tr>
+															<tr data-ri="2"
+																class="ui-widget-content ui-datatable-even" role="row">
+																<td role="gridcell">f71bb0b9</td>
+																<td role="gridcell">1967</td>
+																<td role="gridcell">Volvo</td>
+																<td role="gridcell">Orange</td>
+															</tr>
+															<tr data-ri="3"
+																class="ui-widget-content ui-datatable-odd" role="row">
+																<td role="gridcell">c2763a11</td>
+																<td role="gridcell">1997</td>
+																<td role="gridcell">Audi</td>
+																<td role="gridcell">Black</td>
+															</tr>
+															<tr data-ri="4"
+																class="ui-widget-content ui-datatable-even" role="row">
+																<td role="gridcell">25a8de04</td>
+																<td role="gridcell">1966</td>
+																<td role="gridcell">Audi</td>
+																<td role="gridcell">Silver</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<div id="form:singleDT_paginator_bottom"
+													class="ui-paginator ui-paginator-bottom ui-widget-header ui-corner-bottom"
+													role="navigation">
+													<span
+														class="ui-paginator-first ui-state-default ui-corner-all ui-state-disabled"><span
+														class="ui-icon ui-icon-seek-first">p</span></span><span
+														class="ui-paginator-prev ui-state-default ui-corner-all ui-state-disabled"><span
+														class="ui-icon ui-icon-seek-prev">p</span></span><span
+														class="ui-paginator-pages"><span
+														class="ui-paginator-page ui-state-default ui-state-active ui-corner-all"
+														tabindex="0">1</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">2</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">3</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">4</span><span
+														class="ui-paginator-page ui-state-default ui-corner-all"
+														tabindex="0">5</span></span><span
+														class="ui-paginator-next ui-state-default ui-corner-all"
+														tabindex="0"><span
+														class="ui-icon ui-icon-seek-next">p</span></span><span
+														class="ui-paginator-last ui-state-default ui-corner-all"
+														tabindex="0"><span class="ui-icon ui-icon-seek-end">p</span></span>
+												</div>
+											</div>
+											<script id="form:singleDT_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_form_singleDT",{id:"form:singleDT",paginator:{id:['form:singleDT_paginator_top','form:singleDT_paginator_bottom'],rows:5,rowCount:50,page:0,currentPageTemplate:'({currentPage} of {totalPages})',pageLinks:5},reflow:true});});</script>
+											<input type="hidden" name="javax.faces.ViewState"
+												id="j_id1:javax.faces.ViewState:17"
+												value="-8450402822902730570:-1332149153964468309"
+												autocomplete="off" />
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt46_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt46",{id:"j_idt46"});</script>
+					</div>
+				</div>
+
+				<div class="EmptyBox20"></div>
+			</div>
+		</div>
+
+		<div class="Container100 leaden-back BorBotLeaden">
+			<div class="ContainerIndent">
+				<div class="EmptyBox10"></div>
+
+				<div class="Container20 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt70"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							data-widget="widget_j_idt70">
+							<div id="j_idt70_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Wid100 TexAlCenter">
+									<div class="ContainerIndent">
+										<img id="j_idt72"
+											src="/sentinel/javax.faces.resource/images/audi.jpg.xhtml?ln=demo"
+											alt="" class="Wid100" />
+										<div class="EmptyBox10"></div>
+										<span class="Fs20 DispBlock hardblue">Audi A8<br />
+										<span class="Fs12 softgray">Sales Chart - Group At By
+												Color</span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt70_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt70",{id:"j_idt70"});</script>
+					</div>
+				</div>
+
+				<div class="Container20 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt75"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							data-widget="widget_j_idt75">
+							<div id="j_idt75_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Wid100 TexAlCenter">
+									<div class="ContainerIndent">
+										<img id="j_idt77"
+											src="/sentinel/javax.faces.resource/images/bmw.jpg.xhtml?ln=demo"
+											alt="" class="Wid100" />
+										<div class="EmptyBox10"></div>
+										<span class="Fs20 DispBlock hardblue">BMW i8 <br />
+										<span class="Fs12 softgray">Sales Chart - Group At By
+												Color</span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt75_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt75",{id:"j_idt75"});</script>
+					</div>
+				</div>
+
+				<div class="Container20 Responsive">
+					<div class="ContainerIndent">
+						<div id="j_idt80"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							data-widget="widget_j_idt80">
+							<div id="j_idt80_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Wid100 TexAlCenter">
+									<div class="ContainerIndent">
+										<img id="j_idt82"
+											src="/sentinel/javax.faces.resource/images/aston.jpg.xhtml?ln=demo"
+											alt="" class="Wid100" />
+										<div class="EmptyBox10"></div>
+										<span class="Fs20 DispBlock hardblue">Aston Martin DB9
+											<br />
+										<span class="Fs12 softgray">Sales Chart - Group At By
+												Color</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script id="j_idt80_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt80",{id:"j_idt80"});</script>
+					</div>
+				</div>
+
+				<div class="Container40 Responsive100 ui-fluid">
+					<div class="ContainerIndent">
+						<div id="j_idt85"
+							class="ui-panel ui-widget ui-widget-content ui-corner-all"
+							data-widget="widget_j_idt85">
+							<div id="j_idt85_content"
+								class="ui-panel-content ui-widget-content">
+								<div class="Container100 Fs20">
+									<i class="icon-chart-bar"></i> Bugatti Veyron Specs
+								</div>
+								<div class="EmptyBox10"></div>
+								<div id="j_idt87"
+									class="ui-accordion ui-widget ui-helper-reset ui-hidden-container"
+									role="tablist" data-widget="widget_j_idt87">
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top"
+										role="tab" aria-expanded="true" aria-selected="true">
+										<span class="ui-icon ui-icon-triangle-1-s"></span>Engine Power
+										( HP )
+									</h3>
+									<div id="j_idt87:j_idt88"
+										class="ui-accordion-content ui-helper-reset ui-widget-content"
+										role="tabpanel" aria-hidden="false">Francis Ford
+										Coppola's legendary continuation and sequel to his landmark
+										1972 film, The_Godfather, parallels the young Vito Corleone's
+										rise with his son Michael's spiritual fall, deepening
+										The_Godfather's depiction of the dark side of the American
+										dream. In the early 1900s, the child Vito flees his Sicilian
+										village for America after the local Mafia kills his family.
+										Vito struggles to make a living, legally or illegally, for his
+										wife and growing brood in Little Italy, killing the local
+										Black Hand Fanucci after he demands his customary cut of the
+										tyro's business. With Fanucci gone, Vito's communal stature
+										grows.</div>
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"
+										role="tab" aria-expanded="false" aria-selected="false">
+										<span class="ui-icon ui-icon-triangle-1-e"></span>Transmission
+									</h3>
+									<div id="j_idt87:j_idt90"
+										class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden"
+										role="tabpanel" aria-hidden="true">Francis Ford
+										Coppola's legendary. Francis Ford Coppola's legendary
+										continuation and sequel to his landmark 1972 film,
+										The_Godfather, parallels the young Vito Corleone's rise with
+										his son Michael's spiritual fall, deepening The_Godfather's
+										depiction of the dark side of the American dream. In the early
+										1900s, the child Vito flees his Sicilian village for America
+										after the local Mafia kills his family. Vito struggles to make
+										a living, legally or illegally, for his wife and growing brood
+										in Little Italy, killing the local Black Hand Fanucci after he
+										demands his customary cut of the tyro's business. With Fanucci
+										gone, Vito's communal stature grows.</div>
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"
+										role="tab" aria-expanded="false" aria-selected="false">
+										<span class="ui-icon ui-icon-triangle-1-e"></span>0-100
+									</h3>
+									<div id="j_idt87:j_idt92"
+										class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden"
+										role="tabpanel" aria-hidden="true">After a break of more
+										than 15 years. Francis Ford Coppola's legendary continuation
+										and sequel to his landmark 1972 film, The_Godfather, parallels
+										the young Vito Corleone's rise with his son Michael's
+										spiritual fall, deepening The_Godfather's depiction of the
+										dark side of the American dream. In the early 1900s, the child
+										Vito flees his Sicilian village for America after the local
+										Mafia kills his family. Vito struggles to make a living,
+										legally or illegally, for his wife and growing brood in Little
+										Italy, killing the local Black Hand Fanucci after he demands
+										his customary cut of the tyro's business. With Fanucci gone,
+										Vito's communal stature grows.</div>
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"
+										role="tab" aria-expanded="false" aria-selected="false">
+										<span class="ui-icon ui-icon-triangle-1-e"></span>Wheels
+									</h3>
+									<div id="j_idt87:j_idt94"
+										class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden"
+										role="tabpanel" aria-hidden="true">After a break of more
+										than 15 years. Francis Ford Coppola's legendary continuation
+										and sequel to his landmark 1972 film, The_Godfather, parallels
+										the young Vito Corleone's rise with his son Michael's
+										spiritual fall, deepening The_Godfather's depiction of the
+										dark side of the American dream. In the early 1900s, the child
+										Vito flees his Sicilian village for America after the local
+										Mafia kills his family. Vito struggles to make a living,
+										legally or illegally, for his wife and growing brood in Little
+										Italy, killing the local Black Hand Fanucci after he demands
+										his customary cut of the tyro's business. With Fanucci gone,
+										Vito's communal stature grows.</div>
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"
+										role="tab" aria-expanded="false" aria-selected="false">
+										<span class="ui-icon ui-icon-triangle-1-e"></span>Cruise
+										Control
+									</h3>
+									<div id="j_idt87:j_idt96"
+										class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden"
+										role="tabpanel" aria-hidden="true">After a break of more
+										than 15 years. Francis Ford Coppola's legendary continuation
+										and sequel to his landmark 1972 film, The_Godfather, parallels
+										the young Vito Corleone's rise with his son Michael's
+										spiritual fall, deepening The_Godfather's depiction of the
+										dark side of the American dream. In the early 1900s, the child
+										Vito flees his Sicilian village for America after the local
+										Mafia kills his family. Vito struggles to make a living,
+										legally or illegally, for his wife and growing brood in Little
+										Italy, killing the local Black Hand Fanucci after he demands
+										his customary cut of the tyro's business. With Fanucci gone,
+										Vito's communal stature grows.</div>
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"
+										role="tab" aria-expanded="false" aria-selected="false">
+										<span class="ui-icon ui-icon-triangle-1-e"></span>Parking
+										Sensors And Auto Parking System
+									</h3>
+									<div id="j_idt87:j_idt98"
+										class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden"
+										role="tabpanel" aria-hidden="true">After a break of more
+										than 15 years. Francis Ford Coppola's legendary continuation
+										and sequel to his landmark 1972 film, The_Godfather, parallels
+										the young Vito Corleone's rise with his son Michael's
+										spiritual fall, deepening The_Godfather's depiction of the
+										dark side of the American dream. In the early 1900s, the child
+										Vito flees his Sicilian village for America after the local
+										Mafia kills his family. Vito struggles to make a living,
+										legally or illegally, for his wife and growing brood in Little
+										Italy, killing the local Black Hand Fanucci after he demands
+										his customary cut of the tyro's business. With Fanucci gone,
+										Vito's communal stature grows.</div>
+									<h3
+										class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"
+										role="tab" aria-expanded="false" aria-selected="false">
+										<span class="ui-icon ui-icon-triangle-1-e"></span>Other Specs
+									</h3>
+									<div id="j_idt87:j_idt100"
+										class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden"
+										role="tabpanel" aria-hidden="true">After a break of more
+										than 15 years. Francis Ford Coppola's legendary continuation
+										and sequel to his landmark 1972 film, The_Godfather, parallels
+										the young Vito Corleone's rise with his son Michael's
+										spiritual fall, deepening The_Godfather's depiction of the
+										dark side of the American dream. In the early 1900s, the child
+										Vito flees his Sicilian village for America after the local
+										Mafia kills his family. Vito struggles to make a living,
+										legally or illegally, for his wife and growing brood in Little
+										Italy, killing the local Black Hand Fanucci after he demands
+										his customary cut of the tyro's business. With Fanucci gone,
+										Vito's communal stature grows.</div>
+									<input type="hidden" id="j_idt87_active" name="j_idt87_active"
+										value="0" autocomplete="off" />
+								</div>
+								<script id="j_idt87_s" type="text/javascript">PrimeFaces.cw("AccordionPanel","widget_j_idt87",{id:"j_idt87"});</script>
+							</div>
+						</div>
+						<script id="j_idt85_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt85",{id:"j_idt85"});</script>
+					</div>
+				</div>
+
+				<div class="EmptyBox10"></div>
+			</div>
+		</div>
+	</div>
+	<div id="j_idt104"
+		style="width: 32px; height: 32px; position: fixed; right: 12px; bottom: 10px">
+		<div id="j_idt104_start" style="display: none">
+			<img id="j_idt105"
+				src="/sentinel/javax.faces.resource/images/preloader.gif.xhtml?ln=sentinel-layout"
+				alt="" />
+		</div>
+		<div id="j_idt104_complete" style="display: none"></div>
+	</div>
+	<script id="j_idt104_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_j_idt104",{id:"j_idt104"});});</script>
+</body>
+
+</html>

@@ -1,0 +1,282 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/Layout.xhtml">
+
+<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{maquinaBean.carregarCadastro}" type="preRenderView" />
+			
+			<f:viewParam name="acao" value="#{maquinaBean.acao}"/>
+		</f:metadata>
+		
+		<script>
+            function mascara(o, f) {
+              v_obj = o;
+              v_fun = f;
+              setTimeout("execmascara()", 1);
+            }
+            function execmascara() {
+              v_obj.value = v_fun(v_obj.value);
+            }
+         function valor(v) {
+        v = v.replace(/\D/g, "");
+        v = v.replace(/[0-9]{15}/, "invÃ¡lido");
+        v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 11 digitos
+        v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 8 digitos
+        v = v.replace(/(\d{1})(\d{5})$/, "$1.$2"); // coloca ponto antes dos
+        // Ãºltimos 5 digitos
+        v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2"); // coloca virgula antes dos
+        // Ãºltimos 2 digitos
+        return v;
+}
+                    </script>
+	</ui:define>
+
+	<ui:define name="content">
+		
+	
+		<h1 class="aw-page-title">
+			<i class="fa fa-car"></i> Cadastro de Máquinas</h1>
+			
+		<p:separator style="margim-bottom: 5px; margin-bottom: 25px;"/>
+		
+				<h:form id="formCadastro" styleClass="formulario-cadastro">
+				
+				<p:toolbar
+			style="background: #FFA500; padding: 11px 10px; border: 2px solid #FFA500; border-radius: none;">
+			<f:facet name="left">
+				<i class="fa fa-floppy-o"></i><h:outputText value=" Dados da Máquina" />
+			</f:facet>
+		</p:toolbar>
+				
+					<div class="ui-grid ui-grid-responsive" style="margin-left: 15px;">
+					
+   						 <div class="ui-grid-row" style="margin-top: 8px; margin-bottom: 4px;" >
+					       	<div class="ui-grid-col-1">
+					       		<p:outputLabel value="ID" styleClass="minha-label" />
+					       	</div>
+					       	
+					        <div class="ui-grid-col-3">
+					        	<p:outputLabel value="Descrição *" styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-3">
+					        	<p:outputLabel value="Modelo *"  styleClass="minha-label" style="margin-left: 50px;"/>
+					        </div>
+					        
+					         <div class="ui-grid-col-3">
+					        	<p:outputLabel value="Marca *"  styleClass="minha-label" style="margin-left: 30px;"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Placa" styleClass="minha-label"/>
+					        </div>
+					       </div>
+					       
+					        <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					       
+					        <div class="ui-grid-row">
+						        <div class="ui-grid-col-1">
+						        <!-- CÓDIGO -->
+						       		<p:inputText size="6" disabled="true" value="#{maquinaBean.maquina.codigo}" styleClass="input-meu"/>
+						       	</div>
+						       	
+						        <div class="ui-grid-col-3" >
+						           <!-- DESCRICAO -->
+						       		 <p:inputText size="40" maxlength="100" value="#{maquinaBean.maquina.descricao}" styleClass="input-meu"
+						       		 required="true" requiredMessage="O campo 'Descrição' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-3">
+						           <!-- MODELO -->
+						        	 <p:inputText size="30" maxlength="40" value="#{maquinaBean.maquina.modelo}" styleClass="input-meu" style="margin-left: 50px;"
+						        	 required="true" requiredMessage="O campo 'Modelo' é obrigatório"/>
+						        </div>
+						        
+						         <div class="ui-grid-col-3">
+						            <!-- MARCA -->
+						        	 <p:inputText size="28" maxlength="40" value="#{maquinaBean.maquina.marca}" styleClass="input-meu" style="margin-left: 30px;"
+						        	 required="true" requiredMessage="O campo 'Marca' é obrigatório"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-2">
+						           <!-- PLACA -->
+						        	<p:inputText size="21" maxlength="8" value="#{maquinaBean.maquina.placa}" styleClass="input-meu"/>
+						        </div>
+					  	  </div>
+					    
+					    <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					    
+					    <div class="ui-grid-row">
+					       	
+					        <div class="ui-grid-col-3" style="margin-top: 8px; margin-bottom: 4px;">
+					        	<p:outputLabel value="Tipo de Máquina *"  styleClass="minha-label"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2" style="margin-top: 10px;">
+					        	<p:outputLabel value="Capacidade (m³)" styleClass="minha-label" style="margin-left: -50px;"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-3" style="margin-top: 10px;">
+					       		<p:outputLabel value="Profundidade Máxima de Escavação" styleClass="minha-label" style="margin-left: -50px;"/>
+					       	</div>
+					       	
+					       	 <div class="ui-grid-col-2" style="margin-top: 10px;">
+					       		<p:outputLabel value="Combustível *" styleClass="minha-label" style="margin-left: -56px;"/>
+					       	</div>
+					       	
+					       	 <div class="ui-grid-col-1" style="margin-top: 10px;">
+					        	<p:outputLabel value="Data da Compra"  styleClass="minha-label" style="margin-left: -50px;"/>
+					        </div>
+					        
+					          <div class="ui-grid-col-1" style="margin-top: 10px;">
+					        	<p:outputLabel value="Data da Garantia"  styleClass="minha-label" style="margin-left: -30px;"/>
+					        </div>
+					       	
+					      </div>
+					    
+					     <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					      
+					      <div class="ui-grid-row">
+						        <div class="ui-grid-col-3" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						           <!-- tipo de  máquina -->
+						        	<p:selectOneMenu filter="true" value="#{maquinaBean.maquina.tipoMaquina}" id="combobox" 
+										converter="omnifaces.SelectItemsConverter" required="true" 
+										requiredMessage="O campo 'Tipo de Máquina' é obrigatório">
+										<f:selectItem noSelectionOption="true" itemValue="" itemLabel="Selecione o tipo da máquina" />
+										<f:selectItems value="#{maquinaBean.tiposMaquina}" var="tipoMaquina"
+											itemValue="#{tipoMaquina}" itemLabel="#{tipoMaquina.tipo}"  />
+									</p:selectOneMenu>
+						        </div>
+						        
+						        
+						        <div class="ui-grid-col-2" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						           <!-- CAPACIDADE M³ -->
+						        	<p:inputText size="20" maxlength="15" value="#{maquinaBean.maquina.capacidadeMetrosCubicos}" styleClass="input-meu"
+						        	style="margin-left: -50px;"/>
+						        </div>
+						        
+						        <div class="ui-grid-col-3" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						           <!-- PROFUNDIDADE MAXIMA ESCAVAÇÃO -->
+						        	<p:inputText size="30" maxlength="40" value="#{maquinaBean.maquina.profundidadeMaximaEscavacao}" styleClass="input-meu"
+						        	style="margin-left: -46px;"/>
+						        </div>
+						        
+						          <div class="ui-grid-col-2" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						           <!-- COMBUSTIVEL -->
+						        	<p:selectOneMenu style="font-family: 'Trebuchet MS' ;font-size: 13px; margin-left: -60px;" maxlength="9" value="#{maquinaBean.maquina.combustivel}"
+						        	required="true" requiredMessage="O campo 'Combustível' é obrigatório"> 
+										<f:selectItem itemLabel="Selecione o combustível"  />
+										<f:selectItem itemLabel="Alcool" itemValue="Alcool" />
+										<f:selectItem itemLabel="Diesel" itemValue="Diesel" />
+										<f:selectItem itemLabel="Gasolina" itemValue="Gasolina" />
+						            </p:selectOneMenu>
+						        </div>
+						        
+						        <div class="ui-grid-col-1">
+						           <!-- DATA DE COMPRA -->
+						       		 <p:calendar  size="10" maxlength="8" value="#{maquinaBean.maquina.dataCompra}" styleClass="input-meu"
+						       		 style="margin-left: -50px;"/>
+						        </div>
+						        
+						        	<div class="ui-grid-col-1">
+						           <!-- DATA DE GARANTIA-->
+						       		 <p:calendar  size="12" maxlength="8" value="#{maquinaBean.maquina.dataLimiteGarantia}" styleClass="input-meu"
+						       		  style="margin-left: -30px;"/>
+						        </div>
+						     
+						  
+					  	  </div>
+					  	  
+					  	  <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					  	  
+					  	   <div class="ui-grid-row"  style="margin-top: 10px; margin-bottom: 4px;">
+					         <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Status *"  styleClass="minha-label"/>
+					        </div>
+					        
+					          <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Valor Pago *"  styleClass="minha-label" style="margin-left: -20px;"/>
+					        </div>
+					        
+					        <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Valor Unitário para Locação *"  styleClass="minha-label" style="margin-left: -20px;"/>
+					        </div>
+					        
+
+					          <div class="ui-grid-col-2">
+					        	<p:outputLabel value="Data de Cadastro *"  styleClass="minha-label"/>
+					        </div>
+					      
+					      </div>
+					      
+					       <!-- DIIIIIIIIIIIIIVISAO DAS DIIIIIIIIIIIIIIIV -->
+					      
+					       <div class="ui-grid-row">
+						        
+						        <div class="ui-grid-col-2" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						           <!-- STATUS -->
+						        	<p:selectOneMenu style="font-family: 'Trebuchet MS' ;font-size: 13px;" maxlength="9" value="#{maquinaBean.maquina.status}"
+						        	required="true" requiredMessage="O campo 'Status' é obrigatório" >
+										<f:selectItem itemLabel="Selecione o status"  />
+										<f:selectItem itemLabel="Disponível" itemValue="D" />
+										<f:selectItem itemLabel="Indisponível" itemValue="I"/>
+						            </p:selectOneMenu>
+						        </div>
+						        
+						        <div class="ui-grid-col-2" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						        <!-- Valor Pago-->
+						       		 <p:inputText size="18" maxlength="10" value="#{maquinaBean.maquina.valorPago}" styleClass="input-meu" 
+					       		 required="true"
+						       		requiredMessage="O campo 'Valor Pago é obrigatório"
+									converterMessage="Informe um valor válido para o campo 'Valor Pago'"
+								 	validatorMessage="Informe um valor entre 0,01 e 999999,99 para o campo 'Valor Pago'"
+								 	style="margin-left: -20px;" onkeypress="mascara(this, valor);">
+						       		 <f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
+									<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+									</p:inputText>
+								</div>
+								
+								<div class="ui-grid-col-2" style="margin-top: 2px;font-family: 'Trebuchet MS' ;font-size: 13px;">
+						        <!-- Valor Unitário de Locação-->
+						       		 <p:inputText size="20" maxlength="10" value="#{maquinaBean.maquina.valorUnitarioLocacao}" styleClass="input-meu" 
+						       		required="true"
+						       		requiredMessage="O campo 'Valor Unitário é obrigatório' "
+									converterMessage="Informe um valor válido para o campo 'Valor Uni de Locação'"
+								 	validatorMessage="Informe um valor entre 0,01 e 999999,99 para o campo 'Valor Uni de Locação'"
+								 	style="margin-left: -20px;" onkeypress="mascara(this, valor);">
+						       		 <f:validateDoubleRange minimum="0.01" maximum="999999.99" />
+									<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+									</p:inputText>
+								</div>
+								
+						        
+						        	<div class="ui-grid-col-2">
+						           <!-- DATA DE CADASTRO -->
+						       		 <p:calendar  size="21" maxlength="8" value="#{maquinaBean.maquina.dataCadastro}" styleClass="input-meu" required="true"
+						       		 requiredMessage="O campo 'Data de Cadastro' é obrigatório" />
+						        </div>
+						     </div>
+						 
+						  
+						   <p:separator  style="margin-top: 20px; color: #000000; margin-left: -15px;"/>
+						        
+						 <p:panelGrid columns="5" styleClass="panelgrid-meu" layout="grid">  
+						   <p:commandButton style="padding: 4px 6px  !important; ;" value="Inserir" icon="fa fa-floppy-o" actionListener="#{maquinaBean.salvar}" 
+						   update=":mensagem :formCadastro" disabled="#{maquinaBean.acao == 'Editar'}"/>
+						   
+						   <p:commandButton style="padding: 4px 6px  !important; ;" value="Editar" icon="fa fa-repeat" actionListener="#{maquinaBean.editar}" update=":mensagem" 
+						   action="/paginas/maquina_pesquisa.xhtml" disabled="#{maquinaBean.acao == 'Novo'}"/>
+						   <p:commandButton style="padding: 4px 6px  !important; ;" value="Limpar" icon="fa fa-eraser" actionListener="#{maquinaBean.novo}" update=":mensagem :formCadastro" process="@this"/>
+						   <p:button style="padding: 4px 6px  !important; ;" value="Listar" icon="fa fa-search" outcome="/paginas/maquina_pesquisa.xhtml"/>
+						</p:panelGrid>               
+					</div>
+		
+		</h:form>
+	</ui:define>
+
+</ui:composition>

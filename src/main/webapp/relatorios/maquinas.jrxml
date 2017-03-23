@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-27T21:19:04 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maquinas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c839308c-40e3-458a-8d31-b64080f6d2d7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Terraplenagem Data Adapter"/>
+	<parameter name="MODELO_MAQUINA" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="MARCA_MAQUINA" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="TIPO_MAQUINA" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT bd_terraplenagem.maquinas.codigo,
+	bd_terraplenagem.maquinas.combustivel,
+	bd_terraplenagem.maquinas.data_limite_garantia,
+	bd_terraplenagem.maquinas.marca,
+	bd_terraplenagem.maquinas.descricao,
+	bd_terraplenagem.maquinas.modelo,
+	bd_terraplenagem.maquinas.status,
+	bd_terraplenagem.maquinas.valor_pago,
+	bd_terraplenagem.maquinas.valor_unitario_locacao,
+	bd_terraplenagem.tipos_maquina.tipo
+FROM bd_terraplenagem.maquinas
+	INNER JOIN bd_terraplenagem.tipos_maquina ON 
+	 bd_terraplenagem.maquinas.`tipoMaquina_codigo` = bd_terraplenagem.tipos_maquina.codigo 
+WHERE 
+	 bd_terraplenagem.maquinas.marca LIKE $P{MARCA_MAQUINA} 
+	 AND bd_terraplenagem.tipos_maquina.tipo LIKE $P{TIPO_MAQUINA} 
+	 AND bd_terraplenagem.maquinas.modelo LIKE $P{MODELO_MAQUINA}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Long"/>
+	<field name="combustivel" class="java.lang.String"/>
+	<field name="data_limite_garantia" class="java.sql.Date"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="valor_pago" class="java.math.BigDecimal"/>
+	<field name="valor_unitario_locacao" class="java.math.BigDecimal"/>
+	<field name="tipo" class="java.lang.String"/>
+	<title>
+		<band height="56" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image scaleImage="RealSize" hAlign="Center">
+				<reportElement x="267" y="3" width="269" height="50" uuid="707bed3c-eef4-440c-a703-820cb94096a5"/>
+				<imageExpression><![CDATA["C:/Desenvolvimento/workspace_projeto/TerraplenagemTCC/src/main/webapp/imagens/logodoTCC.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="8" width="400" height="30" uuid="e2e0c8b2-d03a-4033-bcb5-5b9ae49a7318"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relatório de Máquinas
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="19" height="20" uuid="47fb09bf-3899-47f5-9ed0-634d63e4eabe"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="10" width="60" height="20" uuid="3c3bea13-9c24-4c74-8ee9-3b0f5ae9fd32"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="10" width="70" height="20" uuid="b9a1cd42-9a37-4a35-80ae-b4605321e479"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="530" y="10" width="108" height="19" uuid="4cded4a7-250e-4170-9eeb-d902159fa1a5">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Un. Locação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="10" width="100" height="20" uuid="4adf8ed3-a99f-4d13-9d06-09428fb79484"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo da Máquina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="10" width="79" height="19" uuid="7060cc27-8085-4117-a3e7-89f56a23ff65"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Combustível]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="10" width="38" height="19" uuid="062ae958-5eff-421f-8fb3-767034c48589"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="11" width="90" height="19" uuid="80ddf764-df27-46a8-9edd-2c3ea3d732b1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="650" y="10" width="77" height="18" uuid="496681d6-5214-41f1-8bd1-ea08b897a90f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Val Garantia
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="732" y="10" width="68" height="18" uuid="da77ec3d-1412-49f5-affb-269dc4288a9f">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true"/>
+					<paragraph tabStopWidth="40"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="19" height="30" uuid="2fce553b-6df8-45c2-ae9f-f19c36423fd0"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="60" height="30" uuid="4ba58b58-fb5e-4c64-bb4e-1d6b56d7cd71"/>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="70" height="30" uuid="4290af7c-ae89-44c4-8c92-87a1719a999e"/>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="false">
+				<reportElement x="531" y="0" width="107" height="30" uuid="d8daed99-3676-451d-a104-a2b0ce81382e">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_unitario_locacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="afe00d80-9e61-4631-951f-b930ea1a4547"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="78" height="30" uuid="1aaa8dfa-3789-4979-91c3-ba8ea5abe712"/>
+				<textFieldExpression><![CDATA[$F{combustivel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="40" height="30" uuid="aa6d5ae7-fea2-4870-8250-4ff0cc1197b7"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="1" width="90" height="30" uuid="7483a7e6-5481-444d-aa62-c30c5437bf6e"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="650" y="0" width="61" height="30" uuid="b1f554e8-1835-4db4-b194-c470623ea281"/>
+				<textFieldExpression><![CDATA[$F{data_limite_garantia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="false">
+				<reportElement x="731" y="1" width="70" height="30" uuid="b66df803-cdf2-42cb-b642-1b0ad78da3d7"/>
+				<textFieldExpression><![CDATA[$F{valor_pago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="10" width="798" height="42" uuid="da6bfb22-0e23-4a90-8e2b-5936b5bb5d69"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terraplenagem Ribeirão Claro - PR
+Telefone: 3536-1711
+
+]]></text>
+			</staticText>
+			<image scaleImage="RealSize" hAlign="Center">
+				<reportElement x="2" y="53" width="798" height="77" uuid="b6828b62-b22c-4724-937f-05b96e030e22"/>
+				<imageExpression><![CDATA["C:/Desenvolvimento/workspace_projeto/TerraplenagemTCC/src/main/webapp/imagens/rodapeTeste.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-06-26T21:22:20 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientesFisicos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9a50a3f0-c5ad-4a43-b9e7-64468782ea44">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="YmRfdGVycmFwbGVuYWdlbS5jbGllbnRlc19maXNpY29zICwxOTgsMTIsYTU4MmYzZGItMTg2ZS00&#xA;NWYyLWFjMWUtMmJmZDQ5ZDUyMDE1Ow=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Terraplenagem Data Adapter"/>
+	<parameter name="NOME_CLIENTE" class="java.lang.String"/>
+	<parameter name="CPF_CLIENTE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT bd_terraplenagem.clientes_fisicos.codigo,
+	bd_terraplenagem.clientes_fisicos.bairro,
+	bd_terraplenagem.clientes_fisicos.cidade,
+	bd_terraplenagem.clientes_fisicos.cpf,
+	bd_terraplenagem.clientes_fisicos.email,
+	bd_terraplenagem.clientes_fisicos.nome,
+	bd_terraplenagem.clientes_fisicos.numero,
+	bd_terraplenagem.clientes_fisicos.rg,
+	bd_terraplenagem.clientes_fisicos.rua,
+	bd_terraplenagem.clientes_fisicos.telefone_celular,
+	bd_terraplenagem.clientes_fisicos.telefone_fixo
+FROM bd_terraplenagem.clientes_fisicos
+WHERE 
+	 bd_terraplenagem.clientes_fisicos.nome LIKE $P{NOME_CLIENTE} 
+	 AND bd_terraplenagem.clientes_fisicos.cpf LIKE $P{CPF_CLIENTE}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Long"/>
+	<field name="bairro" class="java.lang.String"/>
+	<field name="cidade" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="rg" class="java.lang.String"/>
+	<field name="rua" class="java.lang.String"/>
+	<field name="telefone_celular" class="java.lang.String"/>
+	<field name="telefone_fixo" class="java.lang.String"/>
+	<title>
+		<band height="56" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image scaleImage="RealSize" hAlign="Center">
+				<reportElement x="267" y="3" width="269" height="50" uuid="707bed3c-eef4-440c-a703-820cb94096a5"/>
+				<imageExpression><![CDATA["C:/Desenvolvimento/workspace_projeto/TerraplenagemTCC/src/main/webapp/imagens/logodoTCC.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="8" width="400" height="30" uuid="e2e0c8b2-d03a-4033-bcb5-5b9ae49a7318"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relatório de Clientes Físicos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="28" width="21" height="30" uuid="247f8d5a-8187-4209-8f91-93a25a910626"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="536" y="28" width="74" height="30" uuid="29f4509e-70e9-4d2d-9b35-b297af7aff18"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="610" y="28" width="68" height="30" uuid="89596432-de33-446f-8292-d9c96d47793a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="28" width="80" height="30" uuid="3c4faecc-683e-4912-b79f-82e25254405a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="682" y="28" width="118" height="30" uuid="383e8c04-d609-48e8-b622-4cd532485169"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="28" width="89" height="30" uuid="4aacb571-8852-4c4d-8beb-d81bf45fc74f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="28" width="20" height="30" uuid="5cf0bdfd-3960-49f4-b329-b56e6704f058"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="28" width="60" height="30" uuid="e2941015-89b9-48ff-b251-c3ed8e3e8850"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="28" width="80" height="30" uuid="0194ac0a-df33-4f40-b363-534e841eb2be"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rua]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="28" width="82" height="30" uuid="55aa97ca-57e3-4380-b0fc-383fcfe5d005"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="28" width="70" height="30" uuid="fe257b91-a6e9-4698-87cf-89f3647f4278"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tel Fixo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="21" height="30" uuid="1431d414-b294-4614-842e-e440a54c175e"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="536" y="0" width="74" height="30" uuid="b0b666a7-794c-4615-bd3d-0fab333d64af"/>
+				<textFieldExpression><![CDATA[$F{bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="610" y="0" width="68" height="30" uuid="1d6d66e6-b65c-4fe7-91e4-58d880e46a67"/>
+				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="80" height="30" uuid="3dd25895-7aa5-4c2d-8089-5120f9de86dd"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="682" y="0" width="118" height="30" uuid="8dc61087-8577-4f0b-9e69-e85fd6899548"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="0" width="89" height="30" uuid="05635de5-6212-4228-a78a-c70912a4f096"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="20" height="30" uuid="cddaf621-6315-4319-a802-2f6806eb85e3"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="60" height="30" uuid="8fb31eb7-5949-43c6-b87a-e6dd999c0ef1"/>
+				<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="82" height="30" uuid="b12f4c84-a8ee-4d51-803e-4d33ee2cefd7"/>
+				<textFieldExpression><![CDATA[$F{telefone_celular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="0" width="70" height="30" uuid="35e2832e-2637-4abb-a4ed-189a30a061fe"/>
+				<textFieldExpression><![CDATA[$F{telefone_fixo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="80" height="30" uuid="7cdaa90f-0873-4c6b-854b-a1a37d476f84"/>
+				<textFieldExpression><![CDATA[$F{rua}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="10" width="798" height="42" uuid="da6bfb22-0e23-4a90-8e2b-5936b5bb5d69"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terraplenagem Ribeir�o Claro - PR
+Telefone: 3536-1711
+
+]]></text>
+			</staticText>
+			<image scaleImage="RealSize" hAlign="Center">
+				<reportElement x="2" y="53" width="798" height="77" uuid="b6828b62-b22c-4724-937f-05b96e030e22"/>
+				<imageExpression><![CDATA["C:/Desenvolvimento/workspace_projeto/TerraplenagemTCC/src/main/webapp/imagens/rodapeTeste.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>
